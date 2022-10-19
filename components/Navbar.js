@@ -13,16 +13,12 @@ const navigation = [
   { name: "Calendar", href: "#", current: false },
 ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function Navbar() {
   return (
     <>
-      <Disclosure as="nav" className="bg-gray-800 fixed z-[999] w-full">
+      <Disclosure as="nav" className="bg-gray-800 transition-all duration-1000 fixed z-[999] w-full">
         {({ open }) => (
-          <>
+          <div>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
               <div className="relative flex h-16 items-center justify-between">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -76,7 +72,6 @@ export default function Navbar() {
                 </div>
               </div>
             </div>
-
             <Disclosure.Panel className="sm:hidden">
               <div className="flex flex-col space-x-3">
                 <Link href={"/"}>
@@ -99,7 +94,7 @@ export default function Navbar() {
                 </Link>
               </div>
             </Disclosure.Panel>
-          </>
+          </div>
         )}
       </Disclosure>
     </>

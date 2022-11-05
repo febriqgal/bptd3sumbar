@@ -1,9 +1,6 @@
-import Image from "next/image";
-import Yt from "../public/yt.svg";
-
 /* eslint-disable @next/next/no-img-element */
 export default function Footer() {
-  const Year = new Date().getFullYear()
+  const Year = new Date().getFullYear();
   const navigation = {
     social: [
       {
@@ -54,62 +51,67 @@ export default function Footer() {
     ],
   };
   return (
-    <footer className="bg-slate-800" aria-labelledby="footer-heading">
-      <div className="flex flex-col md:flex-row justify-between py-10 px-10">
-        <div className="space-y-8 xl:col-span-1 mr-10 mb-10 md:mb-0">
-          <img
-            className="h-10"
-            src="https://hubdat.dephub.go.id/static/images/logo_white.bae26e1b95c2.png"
-            alt="Company name"
-          />
-          <h1 className="text-gray-500 text-base ">
-            <div className="hover:text-white">
-              Kementerian Perhubungan
-              <br />
-              Direktorat Jendral Perhubungan Darat <br />
-              Balai Pengelola Transportasi Darat
-              <br />
-              Wilayah III - Sumatera Barat
-            </div>
+    <div className="relative bottom-0 w-full">
+      <footer className="dark:bg-slate-800">
+        <div className="flex flex-col md:flex-row justify-between py-10 px-5">
+          <div className="space-y-8 xl:col-span-1 mr-10 mb-10 md:mb-0  w-[320px]">
+            <img
+              className="h-10 hidden dark:flex"
+              src="https://hubdat.dephub.go.id/static/images/logo_white.bae26e1b95c2.png"
+              alt="Company name"
+            />
+              <img
+              className="h-10 flex dark:hidden"
+              src="https://hubdat.dephub.go.id/static/images/logo_sites.cd63aebaf36b.png"
+              alt="Company name"
+            />
+            <h1 className="text-gray-500 text-base ">
+              <div className="hover:text-white">
+                Kementerian Perhubungan
+                <br />
+                Direktorat Jendral Perhubungan Darat <br />
+                Balai Pengelola Transportasi Darat
+                <br />
+                Wilayah III - Sumatera Barat
+              </div>
 
-            <br />
-            <hr className="w-1/2 border-slate-600" />
-            <br />
-            <span className="text-sm">
-              Jl. Anak Air Kel. Batipuh Panjang
               <br />
-              Kec. Koto Tangah Padang - 251171
-            </span>
-          </h1>
-          <div className="flex space-x-6">
-            {navigation.social.map((item) => (
-              <a
-                target="#"
-                key={item.name}
-                href={item.href}
-                className="text-gray-400 hover:text-gray-500"
-              >
-                <span className="sr-only">{item.name}</span>
-                <item.icon className="h-6 w-6" aria-hidden="true" />
-              </a>
-            ))}
+              <hr className="w-1/2 border-slate-600" />
+              <br />
+              <span className="text-sm">
+                Jl. Anak Air Kel. Batipuh Panjang
+                <br />
+                Kec. Koto Tangah Padang - 251171
+              </span>
+            </h1>
+            <div className="flex space-x-6">
+              {navigation.social.map((item) => (
+                <a
+                  target="#"
+                  key={item.name}
+                  href={item.href}
+                  className="text-gray-400 hover:text-gray-500"
+                >
+                  <span className="sr-only">{item.name}</span>
+                  <item.icon className="h-6 w-6" aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-lg w-full">
+            <iframe
+              className="w-full h-full rounded-md"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.403276403955!2d100.32882711405259!3d-0.8264410355287964!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2fd4c11732bde169%3A0xacb1ace1f293fef9!2sBPTD%20Wilayah%20III%20Provinsi%20Sumatera%20Barat!5e0!3m2!1sid!2sid!4v1664615479318!5m2!1sid!2sid"
+              loading="lazy"
+            ></iframe>
           </div>
         </div>
-        <div>
-          <iframe
-            className="rounded-sm w-full h-full md:w-[900px]"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.403276403955!2d100.32882711405259!3d-0.8264410355287964!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2fd4c11732bde169%3A0xacb1ace1f293fef9!2sBPTD%20Wilayah%20III%20Provinsi%20Sumatera%20Barat!5e0!3m2!1sid!2sid!4v1664615479318!5m2!1sid!2sid"
-           
-            loading="lazy"
-            
-          ></iframe>
+        <div className="dark:bg-slate-800 bg-opacity-50 w-full">
+          <h1 className="text-center py-4 text-gray-500 text-sm">
+            © {Year} - Febriqgal
+          </h1>
         </div>
-      </div>
-      <div className="bg-slate-700 bg-opacity-50">
-        <h1 className="text-center py-4 text-gray-500 text-sm">
-        © {Year} - Febriqgal
-        </h1>
-      </div>
-    </footer>
+      </footer>
+    </div>
   );
 }

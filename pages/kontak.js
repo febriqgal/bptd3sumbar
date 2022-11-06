@@ -12,6 +12,8 @@ export default function Kontak() {
       </Head>
       <div className={styles.main}>
         <h1>Kontak</h1>
+     
+      
       </div>
     </Layout>
   );

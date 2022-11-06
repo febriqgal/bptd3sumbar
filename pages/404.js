@@ -27,7 +27,9 @@ export default function Example() {
           </div>
           <div className="text-center">
             <h1 className="mt-2 text-4xl font-extrabold text-slate-50 tracking-tight sm:text-5xl">
-              404<br/>Page not found.
+              404
+              <br />
+              Page not found.
             </h1>
             <p className="mt-2 text-base text-gray-500">
               Maaf, kami tidak dapat menemukan halaman yang Anda cari.

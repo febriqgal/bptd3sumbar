@@ -13,10 +13,10 @@ import "swiper/css/autoplay";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-
 import { Swiper, SwiperSlide } from "swiper/react";
-import { db } from "../server/firebaseSDK";
-import styles from "../styles/Home.module.css";
+import { db } from "../../server/firebaseSDK";
+import styles from "../../styles/Home.module.css";
+
 export default function ComCarouselBerita() {
   dayjs.locale("id");
   dayjs.extend(relativeTime);
@@ -30,6 +30,7 @@ export default function ComCarouselBerita() {
     );
     const gettt = await getDocs(querySnapshot);
     snapshot.current = gettt.docs;
+
     setIsloading(false);
   };
 
@@ -86,10 +87,11 @@ export default function ComCarouselBerita() {
                     <h1 className={styles.truncate3}>{itemm.isi_berita}</h1>
                   </div>
 
-                  <Link href={`/berita/${item.id}`}>
-                    <a className="bg-slate-700 dark:text-slate-50 text-white py-2 px-3 pt-2 text-center rounded-md">
-                      Selengkapnya
-                    </a>
+                  <Link
+                    href={`/berita/${item.id}`}
+                    className="bg-slate-900 text-white py-2 px-3 pt-2 text-center rounded-lg"
+                  >
+                    Selengkapnya
                   </Link>
                 </div>
               </SwiperSlide>
@@ -133,10 +135,11 @@ export default function ComCarouselBerita() {
                       <h1 className={styles.truncate4}>{itemm.isi_berita}</h1>
                     </div>
 
-                    <Link href={`/berita/${item.id}`}>
-                      <a className="bg-slate-700 py-1 px-3 pt-2 text-center rounded-md">
-                        Selengkapnya
-                      </a>
+                    <Link
+                      href={`/berita/${item.id}`}
+                      className="bg-slate-700 py-1 px-3 pt-2 text-center rounded-md"
+                    >
+                      Selengkapnya
                     </Link>
                   </div>
                 </div>
@@ -172,7 +175,7 @@ export default function ComCarouselBerita() {
                       alt="2"
                     />
                   </figure>
-                  <div className="flex flex-col px-4 justify-between">
+                  <div className="flex flex-col px-4 justify-between mb-2">
                     <div className="w-[200px] text-left font-bold">
                       <h1 className={styles.truncate2}>{itemm.judul_berita}</h1>
                     </div>
@@ -180,10 +183,11 @@ export default function ComCarouselBerita() {
                       <h1 className={styles.truncate4}>{itemm.isi_berita}</h1>
                     </div>
 
-                    <Link href={`/berita/${item.id}`}>
-                      <a className="bg-slate-700 py-1 px-3 pt-2 text-center rounded-md">
-                        Selengkapnya
-                      </a>
+                    <Link
+                      href={`/berita/${item.id}`}
+                      className="hover:bg-slate-900 shadow-xl hover:shadow-xl  text-slate-900 duration-1000 hover:text-slate-50 px-2 py-1 text-xs text-center rounded-lg"
+                    >
+                      Selengkapnya
                     </Link>
                   </div>
                 </div>

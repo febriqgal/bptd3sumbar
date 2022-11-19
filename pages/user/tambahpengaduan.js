@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import app, { db } from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
-import LayoutUser from "../../components/LayoutUser";
+import LayoutUser from "../../components/layout-user";
 
 export default function Admin() {
   const [open, setOpen] = useState(false);
@@ -30,9 +30,7 @@ export default function Admin() {
   const addDatafromDBFirestore = async (data) => {
     try {
       if (imageUpload == null) return;
-      uploadBytes(storageRef, imageUpload).then((snapshot) => {
-        
-      });
+      uploadBytes(storageRef, imageUpload).then((snapshot) => {});
       await addDoc(collection(db, "pengaduan"), {
         judul_pengaduan: data.judul,
         isi_pengaduan: data.isi,
@@ -139,7 +137,7 @@ export default function Admin() {
           onSubmit={handleSubmit(addDatafromDBFirestore)}
         >
           <textarea
-            className="resize-none mb-2 py-1 px-3 rounded-sm"
+            className="resize-none mb-2 py-1 px-3 rounded-lg shadow-lg"
             placeholder="Masukan judul*"
             control={control}
             {...register("judul", { required: true })}
@@ -147,7 +145,7 @@ export default function Admin() {
           <div>
             <label className="mr-2">Pilih Foto* :</label>
             <input
-              className="mb-2"
+              className="mb-2 shadow-lg p-2"
               type="file"
               {...register("gambar", { required: false })}
               onChange={(event) => {
@@ -157,13 +155,13 @@ export default function Admin() {
           </div>
           <textarea
             rows={"6"}
-            className="mb-2 py-1 px-3 rounded-sm line-h"
+            className="mb-2 py-1 px-3 rounded-lg line-h shadow-lg"
             placeholder="Masukan isi*"
             control={control}
             {...register("isi")}
           />{" "}
           <input
-            className="bg-gray-800 mb-2 py-1 px-3 rounded-sm hover:cursor-pointer"
+            className="hover:bg-gray-900 duration-1000 shadow-lg hover:text-white mb-2 py-1 px-3 rounded-lg hover:cursor-pointer"
             type="submit"
           />
         </form>

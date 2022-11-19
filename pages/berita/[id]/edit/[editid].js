@@ -6,12 +6,11 @@ import "dayjs/locale/id";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import Layout from "../../../../components/Layout";
+import { toast, Toaster } from "react-hot-toast";
 import { db } from "../../../../server/firebaseSDK";
 import styles from "../../../../styles/Home.module.css";
-
 export default function detail() {
   const { register, handleSubmit, control, reset } = useForm();
   const [isLoading, setIsloading] = useState(true);
@@ -30,13 +29,21 @@ export default function detail() {
     setIsloading(false);
   };
   const updateDataa = async (data) => {
-    const docRef = doc(db, "berita", `${id}`);
-    await updateDoc(docRef, {
-      judul_berita: data.judul,
-      isi_berita: data.isi,
+    const push = async () => {
+      const docRef = doc(db, "berita", `${id}`);
+      await updateDoc(docRef, {
+        judul_berita: data.judul,
+        isi_berita: data.isi,
+      });
+    };
+    toast.promise(push(), {
+      loading: "Menyimpan...",
+      success: <b>Berhasil edit berita</b>,
+      error: <b>Terjadi kesalahan, silahkan coba lagi!</b>,
     });
-    route.replace("/");
-    alert("Berhasil mengedit berita");
+    setTimeout(() => {
+      route.replace("/");
+    }, 2000);
   };
 
   useEffect(() => {
@@ -57,11 +64,14 @@ export default function detail() {
   } else {
     const post = snapshot.current;
 
- 
     return (
       <div className={styles.main}>
+        <Toaster />
         <div className=" w-[700px]">
-          <form className="flex flex-col" onSubmit={handleSubmit(updateDataa)}>
+          <form
+            className="flex flex-col text-slate-900"
+            onSubmit={handleSubmit(updateDataa)}
+          >
             <textarea
               className="resize-none mb-2 py-1 px-3 rounded-sm"
               placeholder="Masukan judul*"
@@ -78,7 +88,7 @@ export default function detail() {
               {...register("isi")}
             />{" "}
             <input
-              className="bg-gray-800 mb-2 py-1 px-3 rounded-sm hover:cursor-pointer"
+              className="bg-gray-800 mb-2 py-1 px-3 rounded-sm hover:cursor-pointer text-slate-50"
               type="submit"
             />
           </form>

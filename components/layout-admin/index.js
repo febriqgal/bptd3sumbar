@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import { useUser } from "../../context/user";
 import withProtected from "../../hoc/withProtected";
-import EditProfile from "../EditProfile";
+import EditProfile from "../../components/dropdown-button/edit-profile";
 const LayoutAdmin = ({ children }) => {
   const userC = useUser();
   const auth = getAuth();
@@ -16,9 +16,9 @@ const LayoutAdmin = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const navigation = [
+    { name: "Beranda", href: "/admin" },
     { name: "Tambah Berita", href: "/admin/tambahberita" },
     { name: "Ganti Header", href: "/admin/uploadheader" },
-    
   ];
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -119,70 +119,68 @@ const LayoutAdmin = ({ children }) => {
                   <nav className="mt-5 px-2 space-y-1">
                     {/* Mobile */}
                     {navigation.map((item) => (
-                      <Link key={item.name} href={item.href}>
-                        <a
-                          className={classNames(
-                            item.current
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                            "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                          )}
-                        >
-                          <div className="flex">
-                            <svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M6.53151 6.41438C6.20806 6.67313 6.15562 7.1451 6.41438 7.46855L10.0396 12L6.41438 16.5315C6.15562 16.855 6.20806 17.3269 6.53151 17.5857C6.85495 17.8444 7.32692 17.792 7.58568 17.4685L11.5857 12.4685C11.8048 12.1946 11.8048 11.8054 11.5857 11.5315L7.58568 6.53151C7.32692 6.20806 6.85495 6.15562 6.53151 6.41438Z"
-                                fill="#ffffff"
-                              />
-                              <path
-                                opacity="0.4"
-                                d="M12.5315 6.41438C12.2081 6.67313 12.1556 7.1451 12.4144 7.46855L16.0396 12L12.4144 16.5315C12.1556 16.855 12.2081 17.3269 12.5315 17.5857C12.855 17.8444 13.3269 17.792 13.5857 17.4685L17.5857 12.4685C17.8048 12.1946 17.8048 11.8054 17.5857 11.5315L13.5857 6.53151C13.3269 6.20806 12.855 6.15562 12.5315 6.41438Z"
-                                fill="#ffffff"
-                              />
-                            </svg>
-                            {item.name}
-                          </div>
-                        </a>
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className={classNames(
+                          item.current
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                        )}
+                      >
+                        <div className="flex">
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M6.53151 6.41438C6.20806 6.67313 6.15562 7.1451 6.41438 7.46855L10.0396 12L6.41438 16.5315C6.15562 16.855 6.20806 17.3269 6.53151 17.5857C6.85495 17.8444 7.32692 17.792 7.58568 17.4685L11.5857 12.4685C11.8048 12.1946 11.8048 11.8054 11.5857 11.5315L7.58568 6.53151C7.32692 6.20806 6.85495 6.15562 6.53151 6.41438Z"
+                              fill="#ffffff"
+                            />
+                            <path
+                              opacity="0.4"
+                              d="M12.5315 6.41438C12.2081 6.67313 12.1556 7.1451 12.4144 7.46855L16.0396 12L12.4144 16.5315C12.1556 16.855 12.2081 17.3269 12.5315 17.5857C12.855 17.8444 13.3269 17.792 13.5857 17.4685L17.5857 12.4685C17.8048 12.1946 17.8048 11.8054 17.5857 11.5315L13.5857 6.53151C13.3269 6.20806 12.855 6.15562 12.5315 6.41438Z"
+                              fill="#ffffff"
+                            />
+                          </svg>
+                          {item.name}
+                        </div>
                       </Link>
                     ))}
                     <EditProfile />
                   </nav>
                 </div>
                 <div className="flex-shrink-0 flex bg-gray-700 p-4">
-                  <a href="#" className="flex-shrink-0 group block">
-                    <div className="flex items-center">
-                      <div>
-                        <img
-                          className="object-cover h-9 w-9 rounded-full"
-                          src={userC.photoURL}
-                          alt={"#"}
-                        />
-                      </div>
-                      <div className="ml-3">
-                        <h1 className="text-sm font-bold text-slate-50">
-                          {user != null ? `${user.displayName}` : `-`}
-                        </h1>
-                        <h1 className="text-xs text-slate-300 italic">
-                          {user != null ? `${user.email}` : `-`}
-                        </h1>
-                        <button
-                          onClick={async () => {
-                            await signOut(auth);
-                            route.replace("/");
-                          }}
-                          className="bg-red-500 py-1 px-5 rounded-sm mt-2 text-xs font-medium text-gray-300 group-hover:text-gray-200"
-                        >
-                          Keluar
-                        </button>
-                      </div>
+                  <div className="flex items-center">
+                    <div>
+                      <img
+                        className="object-cover h-9 w-9 rounded-full"
+                        src={userC.photoURL}
+                        alt={"#"}
+                      />
                     </div>
-                  </a>
+                    <div className="ml-3">
+                      <h1 className="text-sm font-bold text-slate-50">
+                        {user != null ? `${user.displayName}` : `-`}
+                      </h1>
+                      <h1 className="text-xs text-slate-300 italic">
+                        {user != null ? `${user.email}` : `-`}
+                      </h1>
+                      <button
+                        onClick={async () => {
+                          await signOut(auth);
+                          route.replace("/");
+                        }}
+                        className="bg-red-500 py-1 px-5 rounded-sm mt-2 text-xs font-medium text-gray-300 group-hover:text-gray-200"
+                      >
+                        Keluar
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </Transition.Child>
@@ -192,57 +190,24 @@ const LayoutAdmin = ({ children }) => {
           </Dialog>
         </Transition.Root>
         <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
-          <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
+          <div className="flex-1 flex flex-col min-h-0 shadow-xl">
             <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-              <div className="flex m-auto items-center flex-shrink-0 px-4">
-                <Link href={"/"}>
-                  <img
-                    className="inline-block h-8 w-auto hover:cursor-pointer"
-                    src="https://hubdat.dephub.go.id/static/images/logo_white.bae26e1b95c2.png"
-                    alt="BTPD Wilayah III Sumbar"
-                  />
-                </Link>
-              </div>
               <h1 className="py-4 text-center font-bold text-xl">Admin</h1>
-              <nav className="flex-1 px-2 space-y-1 ">
-                {navigation.map((item) => (
-                  <Link key={item.name} href={item.href}>
-                    <a
-                      className={classNames(
-                        item.current
-                          ? "bg-gray-900 text-white"
-                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                      )}
-                    >
-                      {" "}
-                      <div className="flex">
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M6.53151 6.41438C6.20806 6.67313 6.15562 7.1451 6.41438 7.46855L10.0396 12L6.41438 16.5315C6.15562 16.855 6.20806 17.3269 6.53151 17.5857C6.85495 17.8444 7.32692 17.792 7.58568 17.4685L11.5857 12.4685C11.8048 12.1946 11.8048 11.8054 11.5857 11.5315L7.58568 6.53151C7.32692 6.20806 6.85495 6.15562 6.53151 6.41438Z"
-                            fill="#ffffff"
-                          />
-                          <path
-                            opacity="0.4"
-                            d="M12.5315 6.41438C12.2081 6.67313 12.1556 7.1451 12.4144 7.46855L16.0396 12L12.4144 16.5315C12.1556 16.855 12.2081 17.3269 12.5315 17.5857C12.855 17.8444 13.3269 17.792 13.5857 17.4685L17.5857 12.4685C17.8048 12.1946 17.8048 11.8054 17.5857 11.5315L13.5857 6.53151C13.3269 6.20806 12.855 6.15562 12.5315 6.41438Z"
-                            fill="#ffffff"
-                          />
-                        </svg>
-                      </div>
-                      {item.name}
-                    </a>
+              <nav className="flex-1 flex flex-col px-2 space-y-1 ">
+                {navigation.map((e) => (
+                  <Link
+                    key={e.name}
+                    className="hover:bg-slate-900 hover:text-white py-2 px-3 rounded-lg"
+                    href={e.href}
+                  >
+                    {e.name}
                   </Link>
-                ))}{" "}
+                ))}
+
                 <EditProfile />
               </nav>
             </div>
-            <div className="flex-shrink-0 flex bg-gray-700 p-4">
+            <div className="flex-shrink-0 flex shadow-xl p-4 m-4 rounded-lg">
               <div className="flex items-center">
                 <div>
                   <img
@@ -252,19 +217,20 @@ const LayoutAdmin = ({ children }) => {
                   />
                 </div>
                 <div className="ml-3">
-                  <h1 className="text-sm font-bold text-slate-50">
+                  <h1 className="text-sm font-bold">
                     {user != null ? `${user.displayName}` : `-`}
                   </h1>
-                  <h1 className="text-xs text-slate-300 italic">
+                  <h1 className="text-xs  italic">
                     {user != null ? `${user.email}` : `-`}
                   </h1>
 
                   <button
                     onClick={async () => {
                       await signOut(auth);
+
                       route.replace("/");
                     }}
-                    className="bg-red-500 py-1 px-5 rounded-sm mt-2 text-xs font-medium text-gray-300 group-hover:text-gray-200"
+                    className="bg-red-500 py-1 px-5 mt-2 text-xs font-medium text-white rounded-lg"
                   >
                     Keluar
                   </button>

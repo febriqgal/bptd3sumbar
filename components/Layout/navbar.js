@@ -1,30 +1,54 @@
 /* eslint-disable @next/next/no-img-element */
 import { Disclosure } from "@headlessui/react";
-
-import { getAuth } from "firebase/auth";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useUser } from "../context/user";
-import Dprofile from "./Dprofile";
-import DprofileM from "./DprofileM";
-import Dpublikasi from "./Dpublikasi";
-import DpublikasiM from "./DpublikasiM";
-import Dunitkerja from "./Dunitkerja";
-import DunitkerjaM from "./DunitkerjaM";
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { useEffect, useState } from "react";
+import { useUser } from "../../context/user";
+import Dprofile from "../dropdown-button/Profile";
+
 export default function Navbar() {
+  const [clientWindowHeight, setClientWindowHeight] = useState("");
+  const [backgroundTransparacy, setBackgroundTransparacy] = useState(0);
+  const [padding, setPadding] = useState(10);
+  const [boxShadow, setBoxShadow] = useState(0);
   const userC = useUser();
-  const auth = getAuth();
-  const route = useRouter();
   const { uid } = userC;
   const { email } = userC;
+  const nav = [
+    { title: "Beranda", href: "/" },
+    { title: "Berita", href: "/berita" },
+    { title: "Kegiatan", href: "/kegiatan" },
+    { title: "Pengaduan", href: "/pengaduan" },
+  ];
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
+  const handleScroll = () => {
+    setClientWindowHeight(window.scrollY);
+  };
+
+  useEffect(() => {
+    let backgroundTransparacyVar = clientWindowHeight / 600;
+    if (backgroundTransparacyVar < 1) {
+      let paddingVar = 10 + backgroundTransparacyVar * 5;
+      let boxShadowVar = backgroundTransparacyVar * 0.1;
+      setBackgroundTransparacy(backgroundTransparacyVar);
+      setPadding(paddingVar);
+      setBoxShadow(boxShadowVar);
+    }
+  }, [clientWindowHeight]);
+
   return (
     <>
       <Disclosure
         as="nav"
-        className="dark:bg-slate-800  bg-slate-50 transition-all duration-1000  shadow-gray-200 dark:shadow shadow-md z-[99999] w-full top-0"
+        className="backdrop-blur-sm fixed shadow-gray-200 dark:shadow shadow-md z-[99] w-full top-0"
+        style={{
+          padding: `${padding}px 0px`,
+          backgroundColor: `rgba(255, 255, 255, ${backgroundTransparacy})`,
+          boxShadow: `rgb(0 0 0 / ${boxShadow}) 0px 0px 20px 6px`,
+        }}
       >
         {({ open }) => (
           <div className="mx-auto px-5">
@@ -103,64 +127,33 @@ export default function Navbar() {
                 </Disclosure.Button>
               </div>
               <div className="flex flex-1  items-center justify-center lg:justify-between">
-                <div className="flex justify-center">
+                <div className="flex justify-center items-center">
                   <Link href={"/"}>
-                    <div className="hidden dark:flex hover:cursor-pointer flex-shrink-0 items-center">
+                    <div className="hover:cursor-pointer flex   flex-shrink-0 items-center">
                       <img
-                        className="block h-8 w-auto lg:hidden"
-                        src="https://hubdat.dephub.go.id/static/images/logo_white.bae26e1b95c2.png"
-                        alt="BPTD Wilayah III"
-                      />
-                      <img
-                        className="hidden h-8 w-auto lg:block"
-                        src="https://hubdat.dephub.go.id/static/images/logo_white.bae26e1b95c2.png"
-                        alt="BPTD Wilayah III"
-                      />
-                    </div>
-                  </Link>
-                  <Link href={"/"}>
-                    <div className="dark:hidden visible hover:cursor-pointer flex   flex-shrink-0 items-center">
-                      <img
-                        className="block h-8 w-auto lg:hidden"
+                        className="block h-12 lg:hidden"
                         src="https://hubdat.dephub.go.id/static/images/logo_sites.cd63aebaf36b.png"
                         alt="BPTD Wilayah III"
                       />
                       <img
-                        className="hidden h-8 w-auto lg:block"
+                        className="hidden h-12 lg:block"
                         src="https://hubdat.dephub.go.id/static/images/logo_sites.cd63aebaf36b.png"
                         alt="BPTD Wilayah III"
                       />
                     </div>
                   </Link>
-                  <div className=" pl-5   m-auto hidden lg:flex space-x-3">
-                    <Link href={"/"}>
-                      <a className="w-[100px] h-10  text-center m-auto hover:cursor-pointer px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-slate-600">
-                        Beranda
-                      </a>
-                    </Link>
-                    <Link href={"/berita"}>
-                      <a className="w-[100px] h-10 text-center m-auto hover:cursor-pointer px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-slate-600">
-                        Berita
-                      </a>
-                    </Link>
-                    <Link href={"/kegiatan"}>
-                      <a className="w-[100px] h-10 text-center m-auto hover:cursor-pointer px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-slate-600">
-                        Kegiatan
-                      </a>
-                    </Link>
-                    <Link href={"/pengaduan"}>
-                      <a className="w-[100px] h-10 text-center m-auto hover:cursor-pointer px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-slate-600">
-                        Pengaduan
-                      </a>
-                    </Link>
+                  <div className="ml-5 m-auto hidden lg:flex space-x-4">
+                    {nav.map((e) => (
+                      <Link
+                        key={e.title}
+                        href={e.href}
+                        className="hover:text-slate-50 hover:duration-500  h-10  text-center m-auto hover:cursor-pointer px-3 py-2 rounded-md text-sm font-medium hover:bg-slate-900"
+                      >
+                        {e.title}
+                      </Link>
+                    ))}
+
                     <Dprofile title={"Profile"} />
-                    <Dunitkerja title={"Unit Kerja"} />
-                    <Dpublikasi title={"Publikasi"} />
-                    <Link href={"/kontak"}>
-                      <a className="w-[100px] h-10 text-center m-auto hover:cursor-pointer px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-slate-600">
-                        Kontak
-                      </a>
-                    </Link>
                   </div>
                 </div>
                 <div className="my-auto right-0 top-4 hidden sm:ml-6 lg:block">
@@ -192,15 +185,17 @@ export default function Navbar() {
                       </Link>
                     ) : (
                       <Link href={"/login"}>
-                        <img
-                          title="Login"
-                          loading={"eager"}
-                          className="object-cover h-9 w-9 rounded-full hover:cursor-pointer"
-                          src={
-                            "https://www.pngitem.com/pimgs/m/35-350426_profile-icon-png-default-profile-picture-png-transparent.png"
-                          }
-                          alt="profile"
-                        />
+                        <div className="overflow-hidden rounded-full">
+                          <img
+                            title="Login"
+                            loading={"eager"}
+                            className="object-cover h-9 w-9 rounded-full hover:cursor-pointer scale-[1.13]"
+                            src={
+                              "https://www.pngitem.com/pimgs/m/35-350426_profile-icon-png-default-profile-picture-png-transparent.png"
+                            }
+                            alt="profile"
+                          />
+                        </div>
                       </Link>
                     )}
                   </div>
@@ -210,23 +205,24 @@ export default function Navbar() {
 
             <Disclosure.Panel className="lg:hidden bg-white dark:bg-slate-900">
               <div className="flex flex-col items-center text-center">
-                <Link href={"/"}>
-                  <a className="w-[100px] hover:bg-slate-500 py-2 text-center rounded-md text-sm font-medium ">
-                    Beranda
-                  </a>
+                <Link
+                  href={"/"}
+                  className="w-[100px] hover:bg-slate-500 py-2 text-center rounded-md text-sm font-medium "
+                >
+                  Beranda
                 </Link>
-                <Link href={"/berita"}>
-                  <a className="w-[100px] hover:bg-slate-500 py-2 text-center rounded-md text-sm font-medium ">
-                    Berita
-                  </a>
+                <Link
+                  href={"/berita"}
+                  className="w-[100px] hover:bg-slate-500 py-2 text-center rounded-md text-sm font-medium "
+                >
+                  Berita
                 </Link>
-                <DprofileM title={"Profile"} />
-                <DunitkerjaM title={"Unit Kerja"} />
-                <DpublikasiM title={"Publikasi"} />
-                <Link href={"/kontak"}>
-                  <a className="w-[100px] hover:bg-slate-500 py-2 text-center rounded-md text-sm font-medium ">
-                    Kontak
-                  </a>
+
+                <Link
+                  href={"/kontak"}
+                  className="w-[100px] hover:bg-slate-500 py-2 text-center rounded-md text-sm font-medium "
+                >
+                  Kontak
                 </Link>
                 <div className="m-auto pt-2 pb-4">
                   {uid ? (

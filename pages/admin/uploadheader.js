@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../server/firebaseSDK";
-import LayoutAdmin from "../../components/LayoutAdmin";
+import LayoutAdmin from "../../components/layout-admin";
 import Head from "next/head";
 export default function UploadHeader() {
   const uid = uuidv4();
@@ -16,9 +16,9 @@ export default function UploadHeader() {
   const storageRefHeader = ref(storage, `Header/${uid}`);
   const addDataImageHeader = async () => {
     if (imageUploadHeaader == null) return;
-    await uploadBytes(storageRefHeader, imageUploadHeaader).then((snapshot) => {
-     
-    });
+    await uploadBytes(storageRefHeader, imageUploadHeaader).then(
+      (snapshot) => {}
+    );
     await addDoc(collection(db, "header"), {
       image: `https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/image%2F${storageRefHeader.name}?alt=media&token=fc601c2a-1e0a-4810-8d2c-1826c3923d36`,
     });

@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import app from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
-import LayoutUser from "../../components/LayoutUser";
+import LayoutUser from "../../components/layout-user";
 import { Player } from "@lottiefiles/react-lottie-player";
 
 export default function Admin() {
@@ -81,7 +81,7 @@ export default function Admin() {
           <div>
             <label className="mr-2">Pilih Foto* :</label>
             <input
-              className="mb-2"
+              className="mb-2 shadow-lg p-2"
               type="file"
               {...register("photoURL")}
               onChange={(event) => {
@@ -91,7 +91,7 @@ export default function Admin() {
           </div>
 
           <input
-            className="bg-gray-800 mb-2 py-1 px-3 rounded-sm hover:cursor-pointer"
+            className="hover:bg-gray-900 duration-1000 shadow-lg hover:text-white mb-2 py-1 px-3 rounded-lg hover:cursor-pointer"
             type="submit"
           />
         </form>

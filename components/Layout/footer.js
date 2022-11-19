@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
 export default function Footer() {
   const Year = new Date().getFullYear();
   const navigation = {
@@ -53,14 +54,14 @@ export default function Footer() {
   return (
     <div className="relative bottom-0 w-full">
       <footer className="dark:bg-slate-800">
-        <div className="flex flex-col md:flex-row justify-between py-10 px-5">
+        <div className="flex flex-col md:flex-row justify-between pt-10 px-5">
           <div className="space-y-8 xl:col-span-1 mr-10 mb-10 md:mb-0  w-[320px]">
             <img
               className="h-10 hidden dark:flex"
               src="https://hubdat.dephub.go.id/static/images/logo_white.bae26e1b95c2.png"
               alt="Company name"
             />
-              <img
+            <img
               className="h-10 flex dark:hidden"
               src="https://hubdat.dephub.go.id/static/images/logo_sites.cd63aebaf36b.png"
               alt="Company name"
@@ -86,7 +87,7 @@ export default function Footer() {
             </h1>
             <div className="flex space-x-6">
               {navigation.social.map((item) => (
-                <a
+                <Link
                   target="#"
                   key={item.name}
                   href={item.href}
@@ -94,7 +95,7 @@ export default function Footer() {
                 >
                   <span className="sr-only">{item.name}</span>
                   <item.icon className="h-6 w-6" aria-hidden="true" />
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -107,7 +108,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="dark:bg-slate-800 bg-opacity-50 w-full">
-          <h1 className="text-center py-4 text-gray-500 text-sm">
+          <h1 className="text-center pt-5 pb-5 text-gray-500 text-sm">
             © {Year} - Febriqgal
           </h1>
         </div>

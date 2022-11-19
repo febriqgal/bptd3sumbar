@@ -14,15 +14,12 @@ export default function Example() {
         <main className="flex-grow flex flex-col justify-center max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex-shrink-0 flex justify-center">
             <Link href={"/"}>
-              <a>
-                <span className="sr-only">Workflow</span>
-                <img
-                  title="Beranda"
-                  className="h-12 w-auto"
-                  src="https://hubdat.dephub.go.id/static/images/logo_white.bae26e1b95c2.png"
-                  alt=""
-                />
-              </a>
+              <img
+                title="Beranda"
+                className="h-12 w-auto"
+                src="https://hubdat.dephub.go.id/static/images/logo_white.bae26e1b95c2.png"
+                alt=""
+              />
             </Link>
           </div>
           <div className="text-center">
@@ -35,10 +32,11 @@ export default function Example() {
               Maaf, kami tidak dapat menemukan halaman yang Anda cari.
             </p>
             <div className="mt-6">
-              <Link href={"/"}>
-                <a className="text-base font-medium text-indigo-600 hover:text-indigo-500">
-                  Go back home<span aria-hidden="true"></span>
-                </a>
+              <Link
+                href={"/"}
+                className="text-base font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                Go back home<span aria-hidden="true"></span>
               </Link>
             </div>
           </div>

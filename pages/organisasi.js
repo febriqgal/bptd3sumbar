@@ -1,11 +1,10 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable @next/next/no-img-element */
 
-import { PhoneIcon } from "@heroicons/react/solid";
 import "animate.css";
 import Head from "next/head";
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
 import Layout from "../components/Layout";
 import LogoKanan from "../public/kanan.png";
 export default function Organisasi() {
@@ -133,11 +132,11 @@ export default function Organisasi() {
       </Head>
       <ul
         role="list"
-        className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-5 py-5"
+        className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-5 py-5 mt-[84px]"
       >
         {people.map((person) => (
           <li
-            key={person.email}
+            key={person.nama}
             className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow-xl divide-y divide-gray-200"
           >
             <div className="flex-1 flex flex-col p-8  ">
@@ -158,13 +157,18 @@ export default function Organisasi() {
             <div>
               <div className="-mt-px flex divide-x divide-gray-200">
                 <div className="-ml-px w-0 flex-1 flex">
-                  <a
+                  <Link
                     href={`tel:${person.telephone}`}
                     className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
                   >
-                    <Image alt="#" src={LogoKanan} width={25} height={25} />
-                    <span className="ml-3">Selengkapnya</span>
-                  </a>
+                    <Image
+                      alt={`${person.nama}`}
+                      src={LogoKanan}
+                      width={25}
+                      height={25}
+                    />
+                    Selengkapnya
+                  </Link>
                 </div>
               </div>
             </div>

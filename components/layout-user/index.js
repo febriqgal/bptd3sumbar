@@ -51,7 +51,7 @@ const LayoutUser = ({ children }) => {
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-full"
           >
-            <div className="relative flex-1 flex flex-col max-w-xs w-full bg-gray-800">
+            <div className="relative flex-1 flex flex-col max-w-xs w-full bg-white">
               <Transition.Child
                 as={Fragment}
                 enter="ease-in-out duration-300"
@@ -84,102 +84,47 @@ const LayoutUser = ({ children }) => {
                 </div>
               </Transition.Child>
               <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
-                <div className="flex-shrink-0 flex items-center px-4">
-                  <Link href={"/"}>
-                    <div className="hidden dark:flex hover:cursor-pointer flex-shrink-0 items-center">
-                      <img
-                        className="block h-8 w-auto lg:hidden"
-                        src="https://hubdat.dephub.go.id/static/images/logo_white.bae26e1b95c2.png"
-                        alt="Your Company"
-                      />
-                      <img
-                        className="hidden h-8 w-auto lg:block"
-                        src="https://hubdat.dephub.go.id/static/images/logo_white.bae26e1b95c2.png"
-                        alt="Your Company"
-                      />
-                    </div>
-                  </Link>
-                  <Link href={"/"}>
-                    <div className="dark:hidden visible hover:cursor-pointer flex   flex-shrink-0 items-center">
-                      <img
-                        className="block h-8 w-auto lg:hidden"
-                        src="https://hubdat.dephub.go.id/static/images/logo_sites.cd63aebaf36b.png"
-                        alt="Your Company"
-                      />
-                      <img
-                        className="hidden h-8 w-auto lg:block"
-                        src="https://hubdat.dephub.go.id/static/images/logo_sites.cd63aebaf36b.png"
-                        alt="Your Company"
-                      />
-                    </div>
-                  </Link>
-                </div>
+                <h1 className="pt-8 pb-6 text-center font-bold text-xl">
+                  Dashboard
+                </h1>
                 <nav className="mt-5 px-2 space-y-1">
                   {/* Mobile */}
                   {navigation.map((item) => (
-                    <Link key={item.name} href={item.href}>
-                      <a
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                        )}
-                      >
-                        <div className="flex">
-                          <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M6.53151 6.41438C6.20806 6.67313 6.15562 7.1451 6.41438 7.46855L10.0396 12L6.41438 16.5315C6.15562 16.855 6.20806 17.3269 6.53151 17.5857C6.85495 17.8444 7.32692 17.792 7.58568 17.4685L11.5857 12.4685C11.8048 12.1946 11.8048 11.8054 11.5857 11.5315L7.58568 6.53151C7.32692 6.20806 6.85495 6.15562 6.53151 6.41438Z"
-                              fill="#ffffff"
-                            />
-                            <path
-                              opacity="0.4"
-                              d="M12.5315 6.41438C12.2081 6.67313 12.1556 7.1451 12.4144 7.46855L16.0396 12L12.4144 16.5315C12.1556 16.855 12.2081 17.3269 12.5315 17.5857C12.855 17.8444 13.3269 17.792 13.5857 17.4685L17.5857 12.4685C17.8048 12.1946 17.8048 11.8054 17.5857 11.5315L13.5857 6.53151C13.3269 6.20806 12.855 6.15562 12.5315 6.41438Z"
-                              fill="#ffffff"
-                            />
-                          </svg>
-                          {item.name}
-                        </div>
-                      </a>
+                    <Link
+                      className="flex hover:bg-slate-900 py-2 px-3 rounded-xl hover:text-white duration-1000"
+                      key={item.name}
+                      href={item.href}
+                    >
+                      {item.name}
                     </Link>
                   ))}
                 </nav>
               </div>
-              <div className="flex-shrink-0 flex bg-gray-700 p-4">
-                <a href="#" className="flex-shrink-0 group block">
-                  <div className="flex items-center">
-                    <div>
-                      <img
-                        className="object-cover h-9 w-9 rounded-full"
-                        src={userC.photoURL}
-                        alt={userC.uid}
-                      />
-                    </div>
-                    <div className="ml-3">
-                      <h1 className="text-sm font-bold text-slate-50">
-                        {user != null ? `${user.displayName}` : `-`}
-                      </h1>
-                      <h1 className="text-xs text-slate-300 italic">
-                        {user != null ? `${user.email}` : `-`}
-                      </h1>
-                      <button
-                        onClick={async () => {
-                          await signOut(auth);
-                          route.replace("/");
-                        }}
-                        className="bg-red-500 py-1 px-5 rounded-sm mt-2 text-xs font-medium text-gray-300 group-hover:text-gray-200"
-                      >
-                        Keluarrr
-                      </button>
-                    </div>
-                  </div>
-                </a>
+
+              <div className="flex items-center  shadow-xl m-4 p-5">
+                <img
+                  className="object-cover h-9 w-9 rounded-full"
+                  src={userC.photoURL}
+                  alt={userC.uid}
+                />
+
+                <div className="ml-3">
+                  <h1 className="text-sm font-bold">
+                    {user != null ? `${user.displayName}` : `-`}
+                  </h1>
+                  <h1 className="text-xs italic">
+                    {user != null ? `${user.email}` : `-`}
+                  </h1>
+                  <button
+                    onClick={async () => {
+                      await signOut(auth);
+                      route.replace("/");
+                    }}
+                    className="bg-red-500 py-1 px-5 rounded-lg mt-2 text-xs font-medium text-white group-hover:text-gray-200"
+                  >
+                    Keluar
+                  </button>
+                </div>
               </div>
             </div>
           </Transition.Child>
@@ -192,36 +137,26 @@ const LayoutUser = ({ children }) => {
       {/* Static sidebar for desktop */}
       <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
         {/* Sidebar component, swap this element with another sidebar if you like */}
-        <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
-          <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-            <div className="flex m-auto items-center flex-shrink-0 px-4">
-              <Link href={"/"}>
-                <img
-                  className="h-8 w-auto hover:cursor-pointer"
-                  src="https://hubdat.dephub.go.id/static/images/logo_white.bae26e1b95c2.png"
-                  alt="Workflow"
-                />
-              </Link>
-            </div>
-            <h1 className="py-4 text-center font-bold text-xl">User</h1>
+        <div className="flex-1 flex flex-col min-h-0 shadow-xl">
+          <div className="flex-1 flex-col pb-4 overflow-y-auto">
+            <h1 className="pt-8 pb-6 text-center font-bold text-xl">
+              Dashboard
+            </h1>
             <nav className="flex-1 px-2 space-y-1">
               {navigation.map((item) => (
-                <Link key={item.name} href={item.href}>
-                  <a
-                    className={classNames(
-                      item.current
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                    )}
-                  >
-                    {item.name}
-                  </a>
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={
+                    "hover:bg-gray-900 duration-1000 hover:text-white group flex items-center px-3 py-2 text-sm font-medium rounded-md"
+                  }
+                >
+                  {item.name}
                 </Link>
               ))}
             </nav>
           </div>
-          <div className="flex-shrink-0 flex bg-gray-700 p-4">
+          <div className="flex-shrink-0 flex shadow-xl p-4 m-4 rounded-lg">
             <div className="flex items-center">
               <div>
                 <img
@@ -231,19 +166,20 @@ const LayoutUser = ({ children }) => {
                 />
               </div>
               <div className="ml-3">
-                <h1 className="text-sm font-bold text-slate-50">
+                <h1 className="text-sm font-bold">
                   {user != null ? `${user.displayName}` : `-`}
                 </h1>
-                <h1 className="text-xs text-slate-300 italic">
+                <h1 className="text-xs  italic">
                   {user != null ? `${user.email}` : `-`}
                 </h1>
 
                 <button
                   onClick={async () => {
                     await signOut(auth);
+
                     route.replace("/");
                   }}
-                  className="bg-red-500 py-1 px-5 rounded-sm mt-2 text-xs font-medium text-gray-300 group-hover:text-gray-200"
+                  className="bg-red-500 py-1 px-5 mt-2 text-xs font-medium text-white rounded-lg"
                 >
                   Keluar
                 </button>

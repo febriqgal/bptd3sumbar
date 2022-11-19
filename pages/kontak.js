@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Layout from "../components/Layout";
 import styles from "../styles/Home.module.css";
+import ReactPlayer from "react-player";
+import { Button } from '@nextui-org/react';
 
 export default function Kontak() {
   return (
@@ -12,8 +14,7 @@ export default function Kontak() {
       </Head>
       <div className={styles.main}>
         <h1>Kontak</h1>
-     
-      
+        <Button>sdaaaaaaaaaaaa</Button>
       </div>
     </Layout>
   );

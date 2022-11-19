@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import app from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
-import LayoutUser from "../../components/LayoutUser";
+import LayoutUser from "../../components/layout-user";
 export default function Updatenameuser() {
   const { register, handleSubmit, control } = useForm();
   const [showAlert, setShowAlert] = useState(false);
@@ -55,13 +55,13 @@ export default function Updatenameuser() {
         <form onSubmit={handleSubmit(addDataImageHeader)}>
           <input
             type={"text"}
-            className="mb-2 py-1 px-3 rounded-sm mr-2"
+            className="mb-2 py-1 px-3 rounded-lg mr-2 shadow-lg"
             placeholder="Nama baru*"
             control={control}
             {...register("nama", { required: true })}
           />
           <input
-            className="bg-gray-800 mb-2 py-1 px-3 rounded-sm hover:cursor-pointer"
+            className="hover:bg-gray-900 duration-1000 shadow-lg hover:text-white mb-2 py-1 px-3 rounded-lg hover:cursor-pointer"
             type="submit"
           />
         </form>

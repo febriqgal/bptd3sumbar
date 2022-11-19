@@ -1,6 +1,3 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/outline";
-import { Player } from "@lottiefiles/react-lottie-player";
 import dayjs from "dayjs";
 import "dayjs/locale/id";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -9,13 +6,13 @@ import { addDoc, collection } from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Toaster, toast } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
+import LayoutAdmin from "../../components/layout-admin";
 import app, { db } from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
-import LayoutAdmin from "../../components/LayoutAdmin";
 
 export default function Admin() {
   const { register, handleSubmit, control, reset } = useForm();
@@ -64,7 +61,7 @@ export default function Admin() {
           onSubmit={handleSubmit(addDatafromDBFirestore)}
         >
           <textarea
-            className="  text-slate-900 resize-none mb-2 py-1 px-3 rounded-sm"
+            className="  text-slate-900 resize-none mb-2 py-1 px-3 rounded-lg"
             placeholder="Masukan judul*"
             control={control}
             {...register("judul", { required: true })}

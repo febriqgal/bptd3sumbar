@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import app from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
-import LayoutAdmin from "../../components/LayoutAdmin";
+import LayoutAdmin from "../../components/layout-admin";
 
 export default function Admin() {
   const { register, handleSubmit, control } = useForm();

@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { Loading } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { InitialUserState, useUser } from "./user";
 import { Authentication } from "../server/firebaseSDK";
 import styles from "../styles/Home.module.css";
-import { Player } from "@lottiefiles/react-lottie-player";
+import { InitialUserState, useUser } from "./user";
 
 const AuthStateChangeProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +21,6 @@ const AuthStateChangeProvider = ({ children }) => {
           displayName: user.displayName,
           photoURL: user.photoURL,
         });
-      
       } else {
         console.log("User is not authenticated");
         SetUser(InitialUserState);
@@ -37,13 +36,7 @@ const AuthStateChangeProvider = ({ children }) => {
   if (isLoading) {
     return (
       <div className={styles.main}>
-        <Player
-          className="h-[100px]"
-          autoplay
-          loop
-          src="https://assets3.lottiefiles.com/packages/lf20_b88nh30c.json"
-          alt="2d"
-        />
+        <Loading color={"currentColor"} />
       </div>
     );
   }

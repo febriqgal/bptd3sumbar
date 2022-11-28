@@ -73,7 +73,7 @@ export default function CarouselBerita() {
             <ButtonBack
               role="button"
               aria-label="slide backward"
-              className="bg-slate-900 p-2 z-30 rounded-lg bg-opacity-50 absolute z-30 left-0 ml-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer"
+              className="bg-slate-900 p-2 rounded-lg bg-opacity-50 absolute z-30 left-0 ml-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer"
               id="prev"
             >
               <svg
@@ -139,7 +139,7 @@ export default function CarouselBerita() {
             <ButtonNext
               role="button"
               aria-label="slide forward"
-              className="bg-slate-900 p-2 z-30 rounded-lg bg-opacity-50 absolute z-30 right-0 mr-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+              className="bg-slate-900 p-2 rounded-lg bg-opacity-50 absolute z-30 right-0 mr-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
               id="next"
             >
               <svg

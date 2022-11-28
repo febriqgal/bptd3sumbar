@@ -17,7 +17,6 @@ import tambahpengaduan from "../public/tambahpengaduan.svg";
 import Image from "next/image";
 export default function LayouUser() {
   const user = useUser();
-
   const titlePage = "Pengaduan";
   dayjs.locale("id");
   dayjs.extend(relativeTime);
@@ -67,9 +66,9 @@ export default function LayouUser() {
         >
           <div className="mt-[84px] flex flex-col">
             <div className="flex justify-center gap-2">
-              <Image src={tambahpengaduan} alt={"Tambah Pengaduan"} />
+              <Image width={30} height={30} src={tambahpengaduan} alt={"#"} />
               <Link
-                href={!user ? "/login" : "/tambahpengaduan"}
+                href={!user ? "/login" : "/tambah-pengaduan"}
                 className="text-center justify-self-center hover:bg-slate-900 hover:text-white py-1 px-2 rounded-lg"
               >
                 Tambah Pengaduan

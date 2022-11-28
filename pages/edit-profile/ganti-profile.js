@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import dayjs from "dayjs";
 import "dayjs/locale/id";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -10,8 +11,9 @@ import { useForm } from "react-hook-form";
 import app from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
 import { toast, Toaster } from "react-hot-toast";
+import withProtected from "../../hoc/withProtected";
 
-export default function Admin() {
+const Admin = () => {
   const [isDisable, setDisable] = useState(false);
   const { register, handleSubmit, control } = useForm();
   const auth = getAuth();
@@ -28,7 +30,7 @@ export default function Admin() {
       updateProfile(auth.currentUser, {
         photoURL: `https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/profile%2F${user.uid}?alt=media&token=2ed1037c-2a23-462f-ada1-262a451fcdd0`,
       });
-      setDisable(true)
+      setDisable(true);
     };
     toast.promise(push(), {
       loading: "Mohon tunggu...",
@@ -45,9 +47,9 @@ export default function Admin() {
       </Head>
       <Toaster />
       <div className={styles.main}>
-        <div className="h-[100px] w-[100px] bg-cover overflow-clip rounded-full mb-6">
+        <div className="h-[100px] w-[100px] overflow-clip rounded-full mb-6">
           <img
-            className="h-full w-full "
+            className="h-full w-full object-cover"
             alt="#"
             src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/profile%2F${user.uid}?alt=media&token=2ed1037c-2a23-462f-ada1-262a451fcdd0`}
           />
@@ -61,7 +63,7 @@ export default function Admin() {
             <input
               className="mb-2 shadow-lg p-2"
               type="file"
-              {...register("photoURL", { disabled: isDisable })}
+              {...register("photoURL", { disabled: isDisable, required: true })}
               onChange={(event) => {
                 setImageUpload(event.target.files[0]);
               }}
@@ -70,9 +72,11 @@ export default function Admin() {
           <input
             className="hover:bg-gray-900 duration-1000 shadow-lg hover:text-white mb-2 py-1 px-3 rounded-lg hover:cursor-pointer"
             type="submit"
+            disabled={isDisable}
           />
         </form>
       </div>
     </>
   );
-}
+};
+export default withProtected(Admin);

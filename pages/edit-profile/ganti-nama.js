@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import app from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
 import { toast, Toaster } from "react-hot-toast";
-export default function Updatenameuser() {
+import withProtected from "../../hoc/withProtected";
+const Updatenameuser = () => {
   const [isDisable, setDisable] = useState(false);
   const { register, handleSubmit, control } = useForm();
   const auth = getAuth(app);
@@ -46,9 +47,11 @@ export default function Updatenameuser() {
           <input
             className="hover:bg-gray-900 duration-1000 shadow-lg hover:text-white mb-2 py-1 px-3 rounded-lg hover:cursor-pointer"
             type="submit"
+            disabled={isDisable}
           />
         </form>
       </div>
     </>
   );
-}
+};
+export default withProtected(Updatenameuser);

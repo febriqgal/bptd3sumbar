@@ -1,25 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
 import { Disclosure } from "@headlessui/react";
+import { getAuth } from "firebase/auth";
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useUser } from "../../context/user";
-import Dprofile from "../dropdown-button/Profile";
-import { getAuth, signOut } from "firebase/auth";
-import { useRouter } from "next/router";
-import DropdownProfile from "./profile";
 import Menu from "../../public/menu.svg";
-import Image from "next/image";
+import DropdownProfile from "./profile";
+import "animate.css";
 
 export default function Navbar() {
-  const auth = getAuth();
+  const user = getAuth().currentUser;
   const route = useRouter();
   const [clientWindowHeight, setClientWindowHeight] = useState("");
   const [backgroundTransparacy, setBackgroundTransparacy] = useState(0);
   const [padding, setPadding] = useState(10);
   const [boxShadow, setBoxShadow] = useState(0);
-  const userC = useUser();
-  const { uid } = userC;
-  const { email } = userC;
+  let backgroundTransparacyVar = clientWindowHeight / 600;
   const navigation = [
     { title: "Beranda", href: "/" },
     { title: "Berita", href: "/berita" },
@@ -27,6 +25,7 @@ export default function Navbar() {
     { title: "Pengaduan", href: "/pengaduan" },
     { title: "Sejarah", href: "/sejarah" },
     { title: "Organisasi", href: "/organisasi" },
+    { title: "Tugas dan Fungsi", href: "/tugas-dan-fungsi" },
     { title: "Kontak", href: "/kontak" },
   ];
 
@@ -34,12 +33,12 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   });
+
   const handleScroll = () => {
     setClientWindowHeight(window.scrollY);
   };
 
   useEffect(() => {
-    let backgroundTransparacyVar = clientWindowHeight / 600;
     if (backgroundTransparacyVar < 1) {
       let paddingVar = 10 + backgroundTransparacyVar * 5;
       let boxShadowVar = backgroundTransparacyVar * 0.1;
@@ -47,10 +46,34 @@ export default function Navbar() {
       setPadding(paddingVar);
       setBoxShadow(boxShadowVar);
     }
-  }, [clientWindowHeight]);
+  }, [backgroundTransparacyVar, clientWindowHeight]);
 
   return (
-    <>
+    <section>
+      {backgroundTransparacyVar > 0.5 ? (
+        <div className="animate__animated animate__backInDown fixed bottom-5 right-5 z-[99] bg-slate-900 rounded-full shadow-2xl p-2">
+          <Link href={"#"}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+              color="#ffffff"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4.5 15.75l7.5-7.5 7.5 7.5"
+              />
+            </svg>
+          </Link>
+        </div>
+      ) : (
+        <> </>
+      )}
+
       <Disclosure
         as="nav"
         className="backdrop-blur-sm fixed shadow-gray-200 dark:shadow shadow-md z-[99] w-full top-0"
@@ -104,7 +127,7 @@ export default function Navbar() {
                 <div className="my-auto right-0 top-4 hidden sm:ml-6 lg:block">
                   {/* Profile dropdown */}
                   <div className="relative ml-3">
-                    {uid ? (
+                    {user ? (
                       <DropdownProfile />
                     ) : (
                       <button
@@ -120,7 +143,6 @@ export default function Navbar() {
                 </div>
               </div>
             </div>
-
             <Disclosure.Panel className="lg:hidden bg-white rounded-lg shadow-xl">
               <div className="flex flex-col items-center text-center py-2">
                 {navigation.map((e, i) => (
@@ -141,6 +163,6 @@ export default function Navbar() {
           </div>
         )}
       </Disclosure>
-    </>
+    </section>
   );
 }

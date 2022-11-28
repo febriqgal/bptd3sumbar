@@ -58,7 +58,7 @@ const Tambahpengaduan = () => {
       </Head>
       <Toaster />
       <form
-        className="flex flex-col w-full px-5"
+        className="flex flex-col w-full sm:w-[500px] px-5"
         onSubmit={handleSubmit(addDatafromDBFirestore)}
       >
         <textarea

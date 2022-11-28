@@ -16,9 +16,7 @@ export default function UploadHeader() {
   const storageRefHeader = ref(storage, `Header/${uid}`);
   const addDataImageHeader = async () => {
     if (imageUploadHeaader == null) return;
-    await uploadBytes(storageRefHeader, imageUploadHeaader).then(
-      (snapshot) => {}
-    );
+    await uploadBytes(storageRefHeader, imageUploadHeaader);
     await addDoc(collection(db, "header"), {
       image: `https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/image%2F${storageRefHeader.name}?alt=media&token=fc601c2a-1e0a-4810-8d2c-1826c3923d36`,
     });
@@ -32,8 +30,9 @@ export default function UploadHeader() {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.main}>
-        <form onSubmit={handleSubmit(addDataImageHeader)}>
+        <form className="mx-10" onSubmit={handleSubmit(addDataImageHeader)}>
           <input
+            className="mb-2 py-1 px-3 w-full rounded-lg mr-2 shadow-lg"
             type="file"
             {...register("gambarheader")}
             onChange={(event) => {
@@ -41,7 +40,7 @@ export default function UploadHeader() {
             }}
           ></input>
           <input
-            className="bg-gray-800 mb-2 py-1 px-3 rounded-sm hover:cursor-pointer"
+            className="hover:bg-gray-900 w-full mt-2 duration-1000 shadow-lg hover:text-white mb-2 py-1 px-3 rounded-lg hover:cursor-pointer"
             type="submit"
           />
         </form>

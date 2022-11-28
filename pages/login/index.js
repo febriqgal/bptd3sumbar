@@ -11,35 +11,33 @@ import styles from "../../styles/Home.module.css";
 import { toast, Toaster } from "react-hot-toast";
 
 export default function Login() {
-  const user = useUser();
   const tittlePage = "Login";
   const route = useRouter();
-
   const { register, handleSubmit, reset } = useForm();
   const auth = getAuth(app);
 
   const login = async (data) => {
-    try {
+    const push = async () => {
       await signInWithEmailAndPassword(auth, data.email, data.password);
       setTimeout(() => {
-        if (data.email != "febriqgal@gmail.com") {
-          route.replace("/user");
-        } else {
-          route.replace("/admin");
-        }
+        route.replace("/");
       }, 2000);
-      toast.success("Berhasil Login");
-    } catch (error) {
-      if (error.code === "auth/wrong-password") {
-        toast.error("Password Salah!");
-      } else if (error.code === "auth/user-not-found") {
-        toast.error("Email tidak terdaftar!");
-      } else {
-        toast.error(
-          "Tidak bisa login! karena banyak upaya login yang gagal, cobalah beberapa saat lagi!"
-        );
-      }
-    }
+    };
+    toast.promise(push(), {
+      loading: "Mohon tunggu...",
+      success: <b>Berhasil login</b>,
+      error: (error) => {
+        if (error.code === "auth/wrong-password") {
+          toast.error("Password Salah!");
+        } else if (error.code === "auth/user-not-found") {
+          toast.error("Email tidak terdaftar!");
+        } else {
+          toast.error(
+            "Tidak bisa login! karena banyak upaya login yang gagal, cobalah beberapa saat lagi!"
+          );
+        }
+      },
+    });
     reset();
   };
 
@@ -52,7 +50,6 @@ export default function Login() {
       </Head>
       <Toaster />
       <div className={styles.main}>
-         
         <div className="sm:mx-auto w-full sm:w-96">
           <div className="bg-white mx-5  px-5 py-5  shadow-xl rounded-md">
             <h2 className="text-center mb-8 text-3xl font-extrabold text-slate-900">
@@ -61,7 +58,7 @@ export default function Login() {
             <form className="space-y-4" onSubmit={handleSubmit(login)}>
               <div>
                 <input
-                  className="mb-2 py-2 px-4 rounded-md bg-white w-full shadow-xl text-slate-900"
+                  className="mb-2 py-2 px-4 rounded-md  w-full shadow-xl text-slate-900"
                   id="email"
                   name="email"
                   type="email"

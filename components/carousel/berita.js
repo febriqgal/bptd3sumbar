@@ -1,37 +1,47 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
-import { Player } from "@lottiefiles/react-lottie-player";
+import { Loading } from "@nextui-org/react";
 import dayjs from "dayjs";
 import "dayjs/locale/id";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
-import Link from "next/link";
+import {
+  collection,
+  doc,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  updateDoc,
+} from "firebase/firestore";
+import { useRouter } from "next/router";
+import {
+  ButtonBack,
+  ButtonNext,
+  CarouselProvider,
+  Slide,
+  Slider,
+} from "pure-react-carousel";
+import "pure-react-carousel/dist/react-carousel.es.css";
 import React, { useEffect, useRef, useState } from "react";
-import { Autoplay, EffectCube, Pagination, Scrollbar } from "swiper";
-import "swiper/css";
-import "swiper/css/autoplay";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { db } from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
 
-export default function ComCarouselBerita() {
+export default function CarouselBerita() {
   dayjs.locale("id");
   dayjs.extend(relativeTime);
   const snapshot = useRef(null);
+  const route = useRouter();
   const [isLoading, setIsloading] = useState(true);
   const getDBFromFirestore = async () => {
     const querySnapshot = query(
       collection(db, "berita"),
-      orderBy("tanggal", "desc"),
+      orderBy("dilihat", "desc"),
       limit(10)
     );
     const gettt = await getDocs(querySnapshot);
     snapshot.current = gettt.docs;
-
-    setIsloading(false);
+    setInterval(() => {
+      setIsloading(false);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -41,13 +51,7 @@ export default function ComCarouselBerita() {
   if (isLoading) {
     return (
       <div className={styles.main}>
-        <Player
-          className="h-[100px]"
-          autoplay
-          loop
-          src="https://assets3.lottiefiles.com/packages/lf20_b88nh30c.json"
-          alt="2d"
-        />
+        <Loading color={"currentColor"} />
       </div>
     );
   } else {
@@ -55,147 +59,298 @@ export default function ComCarouselBerita() {
     const data = Object.values(post);
 
     return (
-      <section>
-        {/* 1 */}
-        <Swiper
-          className="h-[400px] md:hidden"
-          // install Swiper modules
-          modules={[Pagination, Scrollbar, Autoplay]}
-          spaceBetween={8}
-          slidesPerView={1}
-          loop={true}
-          effect={EffectCube}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
+      <div className="flex items-center justify-center w-full h-full">
+        {/* Carousel for desktop and large size devices */}
+        <CarouselProvider
+          className="lg:block hidden"
+          isIntrinsicHeight={true}
+          totalSlides={data.length}
+          visibleSlides={3}
+          step={1}
+          infinite={true}
         >
-          {data.map((item) => {
-            const itemm = item.data();
+          <div className="w-full relative flex items-center justify-center">
+            <ButtonBack
+              role="button"
+              aria-label="slide backward"
+              className="bg-slate-900 p-2 z-30 rounded-lg bg-opacity-50 absolute z-30 left-0 ml-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer"
+              id="prev"
+            >
+              <svg
+                width={8}
+                height={14}
+                viewBox="0 0 8 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7 1L1 7L7 13"
+                  stroke="white"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </ButtonBack>
+            <div className="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden">
+              <Slider>
+                <div
+                  id="slider"
+                  className=" rounded-lg h-full flex lg:gap-4 md:gap-6 gap-14 items-center justify-start transition ease-out duration-700"
+                >
+                  {data.map((e, i) => {
+                    const data = e.data();
+                    const judul = data.judul_berita;
+                    const gambar = data.gambar;
 
-            return (
-              <SwiperSlide key={item.id}>
-                <div className="flex flex-col justify-between text-left">
-                  <figure className="h-[150px] w-full mb-3">
-                    <img
-                      className="object-cover h-full w-full rounded-lg"
-                      src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/image%2F${itemm.gambar}?alt=media&token=7cc6415f-ddfd-4e27-b730-a0d2a5e5a886`}
-                      alt="2"
-                    />
-                  </figure>
-                  <div className="text-justify mb-3 font-bold">
-                    <h1 className={styles.truncate2}>{itemm.judul_berita}</h1>
-                  </div>
-                  <div className="text-justify mb-4">
-                    <h1 className={styles.truncate3}>{itemm.isi_berita}</h1>
-                  </div>
+                    return (
+                      <Slide
+                        className="hover:cursor-pointer rounded-lg"
+                        onClick={async () => {
+                          const frankDocRef = doc(db, "berita", `${e.id}`);
+                          await updateDoc(frankDocRef, {
+                            dilihat: data.dilihat + 1,
+                          });
+                          route.push(`/berita/${e.id}`);
+                        }}
+                        key={i}
+                        index={i}
+                      >
+                        <div className="flex flex-shrink-0 relative h-[200px] sm:w-auto">
+                          <img
+                            src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/image%2F${gambar}?alt=media&token=e6aed1f9-4cad-4985-b739-dcf2fcd3e7de`}
+                            alt="black chair and white table"
+                            className="object-cover object-center w-full  rounded-lg"
+                          />
+                          <div className="absolute bottom-2 left-2 right-2 rounded-lg backdrop-blur-md">
+                            <h2
+                              className={`${styles.truncate2} px-2 text-white text-left`}
+                            >
+                              {judul}
+                            </h2>
+                          </div>
+                        </div>
+                      </Slide>
+                    );
+                  })}
+                </div>
+              </Slider>
+            </div>
+            <ButtonNext
+              role="button"
+              aria-label="slide forward"
+              className="bg-slate-900 p-2 z-30 rounded-lg bg-opacity-50 absolute z-30 right-0 mr-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+              id="next"
+            >
+              <svg
+                width={8}
+                height={14}
+                viewBox="0 0 8 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 1L7 7L1 13"
+                  stroke="white"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </ButtonNext>
+          </div>
+        </CarouselProvider>
 
-                  <Link
-                    href={`/berita/${item.id}`}
-                    className="bg-slate-900 text-white py-2 px-3 pt-2 text-center rounded-lg"
+        {/* Carousel for tablet and medium size devices */}
+        {/* <CarouselProvider
+            className="lg:hidden md:block hidden"
+            naturalSlideWidth={100}
+            isIntrinsicHeight={true}
+            totalSlides={dataCarousel.length}
+            visibleSlides={2}
+            step={1}
+            infinite={true}
+          >
+            <div className="w-full relative flex items-center justify-center">
+              <ButtonBack
+                role="button"
+                aria-label="slide backward"
+                className="absolute z-30 left-0 ml-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer"
+                id="prev"
+              >
+                <svg
+                  width={8}
+                  height={14}
+                  viewBox="0 0 8 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7 1L1 7L7 13"
+                    stroke="white"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </ButtonBack>
+              <div className="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden">
+                <Slider>
+                  <div
+                    id="slider"
+                    className="h-full flex lg:gap-8 md:gap-6 gap-14 items-center justify-start transition ease-out duration-700"
                   >
-                    Selengkapnya
-                  </Link>
-                </div>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-        {/* 2 */}
-        <Swiper
-          className="h-[200px] hidden md:block lg:hidden"
-          // install Swiper modules
-          modules={[Pagination, Scrollbar, Autoplay]}
-          spaceBetween={8}
-          slidesPerView={2}
-          loop={true}
-          effect={EffectCube}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          pagination={{
-            clickable: true,
-            type: "custom",
-          }}
-        >
-          {data.map((item) => {
-            const itemm = item.data();
-
-            return (
-              <SwiperSlide key={item.id}>
-                <div className="flex flex-row">
-                  <figure className=" h-[200px] w-[200px]">
-                    <img
-                      className="object-cover h-full w-full rounded-lg"
-                      src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/image%2F${itemm.gambar}?alt=media&token=7cc6415f-ddfd-4e27-b730-a0d2a5e5a886`}
-                      alt="2"
-                    />
-                  </figure>
-
-                  <div className="flex flex-col px-4 justify-between">
-                    <div className="w-[200px] text-left font-bold">
-                      <h1 className={styles.truncate2}>{itemm.judul_berita}</h1>
-                    </div>
-                    <div className="w-[200px]  text-justify">
-                      <h1 className={styles.truncate4}>{itemm.isi_berita}</h1>
-                    </div>
-
-                    <Link
-                      href={`/berita/${item.id}`}
-                      className="bg-slate-700 py-1 px-3 pt-2 text-center rounded-md"
-                    >
-                      Selengkapnya
-                    </Link>
+                    {dataCarousel.map((e, i) => (
+                      <Slide key={i} index={i}>
+                        <div className="flex flex-shrink-0 relative w-full sm:w-auto">
+                          <img
+                            src="https://i.ibb.co/fDngH9G/carosel-1.png"
+                            alt="black chair and white table"
+                            className="object-cover object-center w-full"
+                          />
+                          <div className="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
+                            <h2 className="lg:text-xl leading-4 text-base lg:leading-5 text-white">
+                              Catalog 1
+                            </h2>
+                            <div className="flex h-full items-end pb-6">
+                              <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
+                                Minimal Interior
+                              </h3>
+                            </div>
+                          </div>
+                        </div>
+                      </Slide>
+                    ))}
                   </div>
-                </div>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-        {/* 3 */}
-        <Swiper
-          className="h-[200px] hidden lg:block"
-          // install Swiper modules
-          modules={[Pagination, Scrollbar, Autoplay]}
-          spaceBetween={8}
-          slidesPerView={3}
-          loop={true}
-          effect={EffectCube}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          pagination={{
-            clickable: true,
-            type: "custom",
-          }}
+                </Slider>
+              </div>
+              <ButtonNext
+                role="button"
+                aria-label="slide forward"
+                className="absolute z-30 right-0 mr-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+                id="next"
+              >
+                <svg
+                  width={8}
+                  height={14}
+                  viewBox="0 0 8 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1 1L7 7L1 13"
+                    stroke="white"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </ButtonNext>
+            </div>
+          </CarouselProvider> */}
+
+        {/* Carousel for mobile and Small size Devices */}
+        <CarouselProvider
+          className="block md:hidden"
+          naturalSlideWidth={100}
+          isIntrinsicHeight={true}
+          totalSlides={data.length}
+          visibleSlides={1}
+          step={1}
+          infinite={true}
         >
-          {data.map((item) => {
-            const itemm = item.data();
+          <div className="w-full relative flex items-center justify-center">
+            <ButtonBack
+              role="button"
+              aria-label="slide backward"
+              className="absolute bg-slate-900 p-2 z-30 rounded-lg bg-opacity-50 left-0 ml-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer"
+              id="prev"
+            >
+              <svg
+                width={8}
+                height={14}
+                viewBox="0 0 8 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7 1L1 7L7 13"
+                  stroke="white"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </ButtonBack>
+            <div className="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden">
+              <Slider>
+                <div
+                  id="slider"
+                  className="h-full w-full flex gap-4 lg:gap-8 md:gap-6 items-center justify-start transition ease-out duration-700"
+                >
+                  {data.map((e, i) => {
+                    const data = e.data();
+                    const judul = data.judul_berita;
+                    const gambar = data.gambar;
+                    return (
+                      <Slide
+                        className="rounded-lg"
+                        onClick={async () => {
+                          const frankDocRef = doc(db, "berita", `${e.id}`);
+                          await updateDoc(frankDocRef, {
+                            dilihat: data.dilihat + 1,
+                          });
+                          route.push(`/berita/${e.id}`);
+                        }}
+                        key={i}
+                        index={i}
+                      >
+                        <div className="flex flex-shrink-0 relative w-full h-52 rounded-lg">
+                          <img
+                            src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/image%2F${gambar}?alt=media&token=e6aed1f9-4cad-4985-b739-dcf2fcd3e7de`}
+                            alt="black chair and white table"
+                            className="object-cover object-center w-full rounded-lg"
+                          />
 
-            return (
-              <SwiperSlide key={item.id}>
-                <div className="flex flex-row">
-                  <figure className=" h-[200px] w-[200px] overflow-clip rounded-lg">
-                    <img
-                      className="object-cover h-full w-full  hover:scale-110 duration-1000"
-                      src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/image%2F${itemm.gambar}?alt=media&token=7cc6415f-ddfd-4e27-b730-a0d2a5e5a886`}
-                      alt="2"
-                    />
-                  </figure>
-                  <div className="flex flex-col px-4 justify-between mb-2">
-                    <div className="w-[200px] text-left font-bold">
-                      <h1 className={styles.truncate2}>{itemm.judul_berita}</h1>
-                    </div>
-                    <div className="w-[200px]  text-justify">
-                      <h1 className={styles.truncate4}>{itemm.isi_berita}</h1>
-                    </div>
-
-                    <Link
-                      href={`/berita/${item.id}`}
-                      className="hover:bg-slate-900 shadow-xl hover:shadow-xl  text-slate-900 duration-1000 hover:text-slate-50 px-2 py-1 text-xs text-center rounded-lg"
-                    >
-                      Selengkapnya
-                    </Link>
-                  </div>
+                          <div className="absolute bottom-2 left-2 right-2 rounded-lg backdrop-blur-lg">
+                            <h2
+                              className={`${styles.truncate2} px-2 lg:text-xl text-white`}
+                            >
+                              {`${judul}`}
+                            </h2>
+                          </div>
+                        </div>
+                      </Slide>
+                    );
+                  })}
                 </div>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-      </section>
+              </Slider>
+            </div>
+            <ButtonNext
+              role="button"
+              aria-label="slide forward"
+              className="bg-slate-900 p-2 rounded-lg bg-opacity-50 absolute z-30 right-0 mr-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+              id="next"
+            >
+              <svg
+                width={8}
+                height={14}
+                viewBox="0 0 8 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 1L7 7L1 13"
+                  stroke="white"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </ButtonNext>
+          </div>
+        </CarouselProvider>
+      </div>
     );
   }
 }

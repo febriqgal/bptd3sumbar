@@ -4,8 +4,15 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useUser } from "../../context/user";
 import Dprofile from "../dropdown-button/Profile";
+import { getAuth, signOut } from "firebase/auth";
+import { useRouter } from "next/router";
+import DropdownProfile from "./profile";
+import Menu from "../../public/menu.svg";
+import Image from "next/image";
 
 export default function Navbar() {
+  const auth = getAuth();
+  const route = useRouter();
   const [clientWindowHeight, setClientWindowHeight] = useState("");
   const [backgroundTransparacy, setBackgroundTransparacy] = useState(0);
   const [padding, setPadding] = useState(10);
@@ -13,11 +20,14 @@ export default function Navbar() {
   const userC = useUser();
   const { uid } = userC;
   const { email } = userC;
-  const nav = [
+  const navigation = [
     { title: "Beranda", href: "/" },
     { title: "Berita", href: "/berita" },
     { title: "Kegiatan", href: "/kegiatan" },
     { title: "Pengaduan", href: "/pengaduan" },
+    { title: "Sejarah", href: "/sejarah" },
+    { title: "Organisasi", href: "/organisasi" },
+    { title: "Kontak", href: "/kontak" },
   ];
 
   useEffect(() => {
@@ -55,74 +65,11 @@ export default function Navbar() {
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="items-center justify-center rounded-md p-2 text-gray-400  hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                  <span className="sr-only">Open main menu</span>
+                <Disclosure.Button className="items-center justify-center rounded-md p-2 text-gray-400  hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-600">
                   {open ? (
-                    <>
-                      <svg
-                        className="hidden dark:flex"
-                        width="24px"
-                        height="24px"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M4 9L9 14M12 17L20 9"
-                          stroke="#ffffff"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <svg
-                        className="dark:hidden"
-                        width="24px"
-                        height="24px"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M4 9L9 14M12 17L20 9"
-                          stroke="#001A72"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </>
+                    <Image src={Menu} alt={"#"} />
                   ) : (
-                    <>
-                      <svg
-                        className="hidden dark:flex"
-                        width="24px"
-                        height="24px"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M4 9L9 14M12 17L20 9"
-                          stroke="#ffffff"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <svg
-                        className="dark:hidden"
-                        width="24px"
-                        height="24px"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M4 9L9 14M12 17L20 9"
-                          stroke="#001A72"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </>
+                    <Image src={Menu} alt={"#"} />
                   )}
                 </Disclosure.Button>
               </div>
@@ -143,125 +90,51 @@ export default function Navbar() {
                     </div>
                   </Link>
                   <div className="ml-5 m-auto hidden lg:flex space-x-4">
-                    {nav.map((e) => (
+                    {navigation.map((e, i) => (
                       <Link
-                        key={e.title}
+                        key={i}
                         href={e.href}
                         className="hover:text-slate-50 hover:duration-500  h-10  text-center m-auto hover:cursor-pointer px-3 py-2 rounded-md text-sm font-medium hover:bg-slate-900"
                       >
                         {e.title}
                       </Link>
                     ))}
-
-                    <Dprofile title={"Profile"} />
                   </div>
                 </div>
                 <div className="my-auto right-0 top-4 hidden sm:ml-6 lg:block">
                   {/* Profile dropdown */}
                   <div className="relative ml-3">
                     {uid ? (
-                      <Link
-                        href={
-                          uid && email != "febriqgal@gmail.com"
-                            ? "/user"
-                            : "/admin"
-                        }
-                      >
-                        <img
-                          title={
-                            uid && email != "febriqgal@gmail.com"
-                              ? "User"
-                              : "Admin"
-                          }
-                          loading={"eager"}
-                          className="object-cover h-9 w-9 rounded-full hover:cursor-pointer"
-                          src={
-                            uid
-                              ? userC.photoURL
-                              : "https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png"
-                          }
-                          alt="profile"
-                        />
-                      </Link>
+                      <DropdownProfile />
                     ) : (
-                      <Link href={"/login"}>
-                        <div className="overflow-hidden rounded-full">
-                          <img
-                            title="Login"
-                            loading={"eager"}
-                            className="object-cover h-9 w-9 rounded-full hover:cursor-pointer scale-[1.13]"
-                            src={
-                              "https://www.pngitem.com/pimgs/m/35-350426_profile-icon-png-default-profile-picture-png-transparent.png"
-                            }
-                            alt="profile"
-                          />
-                        </div>
-                      </Link>
+                      <button
+                        onClick={async () => {
+                          route.replace("/login");
+                        }}
+                        className="hover:bg-slate-900 py-2 hover:text-white px-5 font-medium text-slate-900 rounded-lg"
+                      >
+                        Login
+                      </button>
                     )}
                   </div>
                 </div>
               </div>
             </div>
 
-            <Disclosure.Panel className="lg:hidden bg-white dark:bg-slate-900">
-              <div className="flex flex-col items-center text-center">
-                <Link
-                  href={"/"}
-                  className="w-[100px] hover:bg-slate-500 py-2 text-center rounded-md text-sm font-medium "
-                >
-                  Beranda
-                </Link>
-                <Link
-                  href={"/berita"}
-                  className="w-[100px] hover:bg-slate-500 py-2 text-center rounded-md text-sm font-medium "
-                >
-                  Berita
-                </Link>
+            <Disclosure.Panel className="lg:hidden bg-white rounded-lg shadow-xl">
+              <div className="flex flex-col items-center text-center py-2">
+                {navigation.map((e, i) => (
+                  <Link
+                    key={i}
+                    href={e.href}
+                    className="hover:text-slate-50 w-64 hover:duration-500 text-center m-auto hover:cursor-pointer px-3 py-2 rounded-md text-sm font-medium hover:bg-slate-900"
+                  >
+                    {e.title}
+                  </Link>
+                ))}
 
-                <Link
-                  href={"/kontak"}
-                  className="w-[100px] hover:bg-slate-500 py-2 text-center rounded-md text-sm font-medium "
-                >
-                  Kontak
-                </Link>
-                <div className="m-auto pt-2 pb-4">
-                  {uid ? (
-                    <Link
-                      href={
-                        uid && email != "febriqgal@gmail.com"
-                          ? "/user"
-                          : "/admin"
-                      }
-                    >
-                      <img
-                        title={
-                          uid && email != "febriqgal@gmail.com"
-                            ? "User"
-                            : "Admin"
-                        }
-                        loading={"eager"}
-                        className="object-cover h-9 w-9 rounded-full hover:cursor-pointer"
-                        src={
-                          uid
-                            ? userC.photoURL
-                            : "https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png"
-                        }
-                        alt="profile"
-                      />
-                    </Link>
-                  ) : (
-                    <Link href={"/login"}>
-                      <img
-                        title="Login"
-                        loading={"eager"}
-                        className="object-cover h-9 w-9 rounded-full hover:cursor-pointer"
-                        src={
-                          "https://www.pngitem.com/pimgs/m/35-350426_profile-icon-png-default-profile-picture-png-transparent.png"
-                        }
-                        alt="profile"
-                      />
-                    </Link>
-                  )}
+                <div className="m-auto mt-2">
+                  <DropdownProfile />
                 </div>
               </div>
             </Disclosure.Panel>

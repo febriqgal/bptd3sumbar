@@ -53,21 +53,17 @@ export default function Footer() {
   };
   return (
     <div className="relative bottom-0 w-full">
-      <footer className="dark:bg-slate-800">
+      <footer className="bg-slate-900">
         <div className="flex flex-col md:flex-row justify-between pt-10 px-5">
           <div className="space-y-8 xl:col-span-1 mr-10 mb-10 md:mb-0  w-[320px]">
             <img
-              className="h-10 hidden dark:flex"
+              className="h-10"
               src="https://hubdat.dephub.go.id/static/images/logo_white.bae26e1b95c2.png"
               alt="Company name"
             />
-            <img
-              className="h-10 flex dark:hidden"
-              src="https://hubdat.dephub.go.id/static/images/logo_sites.cd63aebaf36b.png"
-              alt="Company name"
-            />
-            <h1 className="text-gray-500 text-base ">
-              <div className="hover:text-white">
+            
+            <h1 className="text-base text-white">
+              <div className="">
                 Kementerian Perhubungan
                 <br />
                 Direktorat Jendral Perhubungan Darat <br />
@@ -107,8 +103,8 @@ export default function Footer() {
             ></iframe>
           </div>
         </div>
-        <div className="dark:bg-slate-800 bg-opacity-50 w-full">
-          <h1 className="text-center pt-5 pb-5 text-gray-500 text-sm">
+        <div className="bg-slate-900 w-full">
+          <h1 className="text-center pt-5 pb-5 text-white text-sm">
             © {Year} - Febriqgal
           </h1>
         </div>

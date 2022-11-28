@@ -5,7 +5,6 @@ import { getAuth } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast, Toaster } from "react-hot-toast";
@@ -13,23 +12,23 @@ import { v4 as uuidv4 } from "uuid";
 import LayoutAdmin from "../../components/layout-admin";
 import app, { db } from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
+import { useRouter } from "next/router";
 
 export default function Admin() {
-  const { register, handleSubmit, control, reset } = useForm();
+  dayjs.locale("id");
+  dayjs.extend(relativeTime);
+  const { register, handleSubmit, control } = useForm();
   const uid = uuidv4();
   const auth = getAuth();
   const user = auth.currentUser;
   const [imageUpload, setImageUpload] = useState();
-  const route = useRouter();
   const storage = getStorage(app);
-  const [isLoading, setIsloading] = useState(false);
   const storageRef = ref(storage, `image/${uid}`);
-  dayjs.locale("id");
-  dayjs.extend(relativeTime);
+  const route = useRouter();
+
   const addDatafromDBFirestore = async (data) => {
     const push = async () => {
       if (imageUpload == null) return;
-      setIsloading(true);
       await uploadBytes(storageRef, imageUpload);
       await addDoc(collection(db, "berita"), {
         judul_berita: data.judul,
@@ -37,15 +36,18 @@ export default function Admin() {
         penulis_berita: user.displayName,
         tanggal_berita: dayjs().format("ddd, MMM D, YYYY HH:mm"),
         tanggal: dayjs().format(),
+        dilihat: 0,
         gambar: storageRef.name,
       });
+      setInterval(() => {
+        route.replace("/");
+      }, 2000);
     };
     toast.promise(push(), {
-      loading: "Saving...",
-      success: <b>Settings saved!</b>,
-      error: <b>Could not save.</b>,
+      loading: "Mohon tunggu...",
+      success: <b>Berhasil menambahkan berita</b>,
+      error: <b>Terjadi kesalahan, silahkan coba lagi.</b>,
     });
-    reset();
   };
   return (
     <LayoutAdmin>
@@ -57,11 +59,11 @@ export default function Admin() {
       <Toaster />
       <div className={styles.main}>
         <form
-          className="flex flex-col"
+          className="flex flex-col mx-8"
           onSubmit={handleSubmit(addDatafromDBFirestore)}
         >
           <textarea
-            className="  text-slate-900 resize-none mb-2 py-1 px-3 rounded-lg"
+            className="mb-2 py-1 px-3 w-full rounded-lg mr-2 shadow-lg"
             placeholder="Masukan judul*"
             control={control}
             {...register("judul", { required: true })}
@@ -69,7 +71,7 @@ export default function Admin() {
           <div>
             <label className="mr-2">Pilih Foto* :</label>
             <input
-              className="mb-2"
+              className="mb-2 py-1 px-3 w-full rounded-lg mr-2 shadow-lg"
               type="file"
               {...register("gambar")}
               onChange={(event) => {
@@ -79,13 +81,13 @@ export default function Admin() {
           </div>
           <textarea
             rows={"6"}
-            className="text-slate-900 mb-2 py-1 px-3 rounded-sm line-h"
+            className="mb-2 py-1 px-3 w-full rounded-lg mr-2 shadow-lg"
             placeholder="Masukan isi*"
             control={control}
-            {...register("isi")}
-          />{" "}
+            {...register("isi", { required: true })}
+          />
           <input
-            className="bg-gray-800 mb-2 py-1 px-3 rounded-sm hover:cursor-pointer"
+            className="hover:bg-gray-900 w-full duration-1000 shadow-lg hover:text-white mb-2 py-1 px-3 rounded-lg hover:cursor-pointer"
             type="submit"
           />
         </form>

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Player } from "@lottiefiles/react-lottie-player";
+import { Loading } from "@nextui-org/react";
 import dayjs from "dayjs";
 import "dayjs/locale/id";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -52,13 +53,7 @@ export default function detail() {
   if (isLoading) {
     return (
       <div className={styles.main}>
-        <Player
-          className="h-[100px]"
-          autoplay
-          loop
-          src="https://assets3.lottiefiles.com/packages/lf20_b88nh30c.json"
-          alt="2d"
-        />
+        <Loading color={"currentColor"} />
       </div>
     );
   } else {
@@ -67,32 +62,36 @@ export default function detail() {
     return (
       <div className={styles.main}>
         <Toaster />
-        <div className=" w-[700px]">
-          <form
-            className="flex flex-col text-slate-900"
-            onSubmit={handleSubmit(updateDataa)}
-          >
+        <form
+          className="flex flex-col text-slate-900 w-full px-5"
+          onSubmit={handleSubmit(updateDataa)}
+        >
+          <label className="text-center mb-2">
+            Judul
             <textarea
-              className="resize-none mb-2 py-1 px-3 rounded-sm"
+              className="mb-2  py-1 px-3 w-full rounded-lg mr-2 shadow-lg"
               placeholder="Masukan judul*"
               control={control}
               defaultValue={post ? post.judul_berita : ""}
               {...register("judul", { required: true })}
             />
+          </label>
+          <label className="text-center mb-2">
+            Isi Berita
             <textarea
               rows={"10"}
-              className="mb-2 py-1 px-3 rounded-sm line-h"
+              className="mb-2 py-1 px-3 w-full rounded-lg mr-2 shadow-lg"
               placeholder="Masukan isi*"
               control={control}
               defaultValue={post ? post.isi_berita : ""}
               {...register("isi")}
-            />{" "}
-            <input
-              className="bg-gray-800 mb-2 py-1 px-3 rounded-sm hover:cursor-pointer text-slate-50"
-              type="submit"
             />
-          </form>
-        </div>
+          </label>
+          <input
+            className="hover:bg-gray-900 w-full duration-1000 shadow-lg hover:text-white mb-2 py-1 px-3 rounded-lg hover:cursor-pointer"
+            type="submit"
+          />
+        </form>
       </div>
     );
   }

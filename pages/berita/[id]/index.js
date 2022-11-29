@@ -23,6 +23,7 @@ import styles from "../../../styles/Home.module.css";
 import dilihat from "../../../public/dilihat.svg";
 import dibuat from "../../../public/dibuat.svg";
 import penulis from "../../../public/penulis.svg";
+import { Modal, Input, Row, Checkbox, Button, Text } from "@nextui-org/react";
 export default function detail() {
   const [isLoading, setIsloading] = useState(true);
   const [open, setOpen] = useState(false);
@@ -30,7 +31,12 @@ export default function detail() {
   const { id } = route.query;
   const users = useUser();
   const { email } = users;
-
+  const [visible, setVisible] = React.useState(false);
+  const handler = () => setVisible(true);
+  const closeHandler = () => {
+    setVisible(false);
+    console.log("closed");
+  };
   const snapshot = useRef(null);
   dayjs.locale("id");
   dayjs.extend(relativeTime);
@@ -87,101 +93,43 @@ export default function detail() {
               {email === "febriqgal@gmail.com" ? (
                 <div className="bottom-5 right-5 md:bottom-10  md:right-10 z-50  fixed flex flex-col items-start ">
                   {/* modal hapus */}
-                  <Transition.Root show={open} as={Fragment}>
-                    <Dialog
-                      as="div"
-                      className="fixed z-[999] inset-0 overflow-y-auto"
-                      onClose={() => {}}
-                    >
-                      <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                        <Transition.Child
-                          as={Fragment}
-                          enter="ease-out duration-300"
-                          enterFrom="opacity-0"
-                          enterTo="opacity-100"
-                          leave="ease-in duration-200"
-                          leaveFrom="opacity-100"
-                          leaveTo="opacity-0"
-                        >
-                          <Dialog.Overlay className="fixed inset-0 bg-slate-800 bg-opacity-50 transition-opacity" />
-                        </Transition.Child>
+                  <Modal
+                    closeButton
+                    blur
+                    aria-labelledby="modal-title"
+                    open={visible}
+                    onClose={closeHandler}
+                  >
+                    <Modal.Header>
+                      <h1>Pemberitahuan</h1>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <h1 className="text-center m-auto">Yakin Menghapus?</h1>
+                      <button
+                        onClick={async () => {
+                          try {
+                            const docRef = doc(db, "berita", `${id}`);
+                            const storage = getStorage(app);
+                            const desertRef = ref(
+                              storage,
+                              `image/${post.gambar}`
+                            );
+                            await deleteObject(desertRef);
+                            await deleteDoc(docRef);
 
-                        {/* This element is to trick the browser into centering the modal contents. */}
-                        <span
-                          className="hidden sm:inline-block sm:align-middle sm:h-screen"
-                          aria-hidden="true"
-                        >
-                          &#8203;
-                        </span>
-                        <Transition.Child
-                          as={Fragment}
-                          enter="ease-out duration-300"
-                          enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                          enterTo="opacity-100 translate-y-0 sm:scale-100"
-                          leave="ease-in duration-200"
-                          leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-                          leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                        >
-                          <div className="inline-block align-bottom bg-white w-[300px] rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-                            <div>
-                              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-                                <CheckIcon
-                                  className="h-6 w-6 text-green-600"
-                                  aria-hidden="true"
-                                />
-                              </div>
-                              <div className="mt-3 text-center sm:mt-5">
-                                <Dialog.Title
-                                  as="h3"
-                                  className="text-lg leading-6 font-medium text-gray-900"
-                                >
-                                  Yakin hapus?
-                                </Dialog.Title>
-                              </div>
-                            </div>
-                            <div className="mt-5 sm:mt-6">
-                              <button
-                                type="button"
-                                className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 outline-1 outline outline-indigo-600 font-medium text-indigo-700 hover:text-slate-50 hover:bg-indigo-700 text-sm"
-                                onClick={() => {
-                                  setOpen(false);
-                                }}
-                              >
-                                Batal
-                              </button>
-                            </div>
-                            <div className="mt-1">
-                              <button
-                                type="button"
-                                className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 font-medium text-white hover:bg-indigo-700 focus:outline-none  focus:ring-indigo-500 text-sm"
-                                onClick={async () => {
-                                  try {
-                                    const docRef = doc(db, "berita", `${id}`);
-                                    const storage = getStorage(app);
-                                    const desertRef = ref(
-                                      storage,
-                                      `image/${post.gambar}`
-                                    );
-                                    await deleteObject(desertRef);
-                                    await deleteDoc(docRef);
-
-                                    route.replace("/");
-                                    toast.success("Berhasil Menghapus Berita", {
-                                      icon: "🎉",
-                                    });
-                                  } catch (error) {
-                                    toast.error("Gagal Menghapus berita");
-                                  }
-                                }}
-                              >
-                                Hapus
-                              </button>
-                            </div>
-                          </div>
-                        </Transition.Child>
-                      </div>
-                    </Dialog>
-                  </Transition.Root>
+                            route.replace("/");
+                            toast.success("Berhasil Menghapus Berita", {
+                              icon: "🎉",
+                            });
+                          } catch (error) {
+                            toast.error("Gagal Menghapus berita");
+                          }
+                        }}
+                      >
+                        Hapus
+                      </button>
+                    </Modal.Body>
+                  </Modal>
                   <Link href={`${id}/edit/${post.judul_berita}`}>
                     <button className=" bg-slate-50  px-2 pt-2 rounded-full">
                       <Image
@@ -195,7 +143,7 @@ export default function detail() {
                   </Link>
                   <button
                     onClick={() => {
-                      setOpen(true);
+                      handler();
                     }}
                     className="bg-slate-50 px-2 pt-2 rounded-full mt-2"
                   >

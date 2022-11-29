@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import { Loading } from "@nextui-org/react";
+import { Loading, Tooltip } from "@nextui-org/react";
 import dayjs from "dayjs";
 import "dayjs/locale/id";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -100,12 +100,11 @@ export default function LayouUser() {
                         </div>
                         <div className="flex items-center gap-2">
                           <Image src={dibuat} width={20} alt={"#"} />
-                          <h5
-                            title={Data.tanggal_berita}
-                            className="text-gray-900 text-xs font-medium "
-                          >
-                            {dayjs(Data.tanggal).fromNow()}
-                          </h5>
+                          <Tooltip shadow={true} content={Data.tanggal_berita}>
+                            <h5 className="text-gray-900 text-xs font-medium ">
+                              {dayjs(Data.tanggal).fromNow()}
+                            </h5>
+                          </Tooltip>
                         </div>
                       </div>
                     </div>

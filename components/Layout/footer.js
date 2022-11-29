@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { Tooltip } from "@nextui-org/react";
 import Link from "next/link";
 export default function Footer() {
   const Year = new Date().getFullYear();
@@ -31,7 +32,7 @@ export default function Footer() {
         ),
       },
       {
-        name: "twitter",
+        name: "Twitter",
         href: "https://www.twitter.com/",
         icon: (props) => (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
@@ -41,7 +42,7 @@ export default function Footer() {
       },
 
       {
-        name: "tiktok",
+        name: "Tiktok",
         href: "https://www.youtube.com/channel/UCcoYaBkAd_3a61Ib43WTfEg",
         icon: (props) => (
           <svg fill="currentColor" viewBox="0 0 27 27" {...props}>
@@ -61,7 +62,7 @@ export default function Footer() {
               src="https://hubdat.dephub.go.id/static/images/logo_white.bae26e1b95c2.png"
               alt="Company name"
             />
-            
+
             <h1 className="text-base text-white">
               <div className="">
                 Kementerian Perhubungan
@@ -83,15 +84,20 @@ export default function Footer() {
             </h1>
             <div className="flex space-x-6">
               {navigation.social.map((item) => (
-                <Link
-                  target="#"
+                <Tooltip
+                  placement={item.name === "Facebook" ? "right" : "top"}
                   key={item.name}
-                  href={item.href}
-                  className="text-gray-400 hover:text-gray-500"
+                  content={item.name}
                 >
-                  <span className="sr-only">{item.name}</span>
-                  <item.icon className="h-6 w-6" aria-hidden="true" />
-                </Link>
+                  <Link
+                    target="#"
+                    href={item.href}
+                    className="text-gray-400 hover:text-gray-500"
+                  >
+                    <span className="sr-only">{item.name}</span>
+                    <item.icon className="h-6 w-6" aria-hidden="true" />
+                  </Link>
+                </Tooltip>
               ))}
             </div>
           </div>

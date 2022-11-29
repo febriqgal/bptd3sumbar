@@ -1,12 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import CarouselBerita from "../components/carousel/berita";
 import ComCarouselHeader from "../components/Carousel/header";
-import CarouselYoutube from "../components/carousel/youtube";
 import Layout from "../components/Layout";
-
+import populer from "../public/populer.svg";
+import ig from "../public/ig.svg";
+import yt from "../public/ytt.svg";
 export default function Index() {
   return (
     <Layout>
@@ -20,7 +22,10 @@ export default function Index() {
         <ComCarouselHeader />
         <div className="shadow-xl mx-5 my-8 rounded-md text-center">
           <div className="flex flex-col justify-center items-center">
-            <h1 className="font-bold">Berita Terpopuler</h1>
+            <div className="flex gap-2">
+              <Image src={populer} alt={"#"} />
+              <h1 className="font-bold">Berita Terpopuler</h1>
+            </div>
             <div className="m-4">
               <CarouselBerita />
             </div>
@@ -28,22 +33,20 @@ export default function Index() {
         </div>
         <div className="shadow-xl mx-5 my-8 rounded-md text-center">
           <div className="flex flex-col justify-center items-center">
-            <h1 className="font-bold">Postingan dari Instagram</h1>
+            <div className="flex gap-2">
+              <Image src={ig} alt={"#"} />
+              <h1 className="font-bold">Postingan dari Instagram</h1>
+            </div>
             <div className="m-4"></div>
           </div>
         </div>
-
-        <div className="shadow-xl mx-5 my-4 rounded-md text-center">
-          <div className="px-5">
-            <div className="py-5  flex justify-between items-center">
-              <h1 className="font-bold mr-2">Aplikasi dan Layanan</h1>
-              <Link href={"/berita"} className="text-xs hover:underline">
-                Lihat semua
-              </Link>
+        <div className="shadow-xl mx-5 my-8 rounded-md text-center">
+          <div className="flex flex-col justify-center items-center">
+            <div className="flex gap-2">
+              <Image src={yt} alt={"#"} />
+              <h1 className="font-bold">Video dari Youtube</h1>
             </div>
-            <div>
-              <h1 className="py-24">Coming Soon!</h1>
-            </div>
+            <div className="m-4"></div>
           </div>
         </div>
       </div>

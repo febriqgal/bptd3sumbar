@@ -9,6 +9,7 @@ import { useUser } from "../../context/user";
 import Menu from "../../public/menu.svg";
 import DropdownProfile from "./profile";
 import "animate.css";
+import top from "../../public/top.svg";
 
 export default function Navbar() {
   const user = getAuth().currentUser;
@@ -27,6 +28,7 @@ export default function Navbar() {
     { title: "Organisasi", href: "/organisasi" },
     { title: "Tugas dan Fungsi", href: "/tugas-dan-fungsi" },
     { title: "Kontak", href: "/kontak" },
+    { title: "Test", href: "/test" },
   ];
 
   useEffect(() => {
@@ -53,21 +55,7 @@ export default function Navbar() {
       {backgroundTransparacyVar > 0.5 ? (
         <div className="animate__animated animate__backInDown fixed bottom-5 right-5 z-[99] bg-slate-900 rounded-full shadow-2xl p-2">
           <Link href={"#"}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-              color="#ffffff"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4.5 15.75l7.5-7.5 7.5 7.5"
-              />
-            </svg>
+            <Image src={top} alt={"#"} />
           </Link>
         </div>
       ) : (

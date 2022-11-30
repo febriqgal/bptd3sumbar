@@ -1,7 +1,6 @@
 import Head from "next/head";
 import AuthStateChangeProvider from "../context/auth";
 import { UserProvider } from "../context/user";
-import Middleware from "../middleware";
 import "../styles/globals.css";
 function MyApp({ Component, pageProps }) {
   return (

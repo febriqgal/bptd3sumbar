@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/outline";
-import { Loading } from "@nextui-org/react";
+import { Loading, Modal, Tooltip } from "@nextui-org/react";
 import dayjs from "dayjs";
 import "dayjs/locale/id";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -12,18 +10,21 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import Layout from "../../../components/Layout";
 import { useUser } from "../../../context/user";
+import dibuat from "../../../public/dibuat.svg";
+import dilihat from "../../../public/dilihat.svg";
 import Edit from "../../../public/edit.png";
+import penulis from "../../../public/penulis.svg";
 import Sampah from "../../../public/sampah.png";
 import app, { db } from "../../../server/firebaseSDK";
 import styles from "../../../styles/Home.module.css";
-import dilihat from "../../../public/dilihat.svg";
-import dibuat from "../../../public/dibuat.svg";
-import penulis from "../../../public/penulis.svg";
-import { Modal, Input, Row, Checkbox, Button, Text } from "@nextui-org/react";
+import selengkapnya from "../../../public/selengkapnya.svg";
+import hapus from "../../../public/hapus.svg";
+import edit from "../../../public/edit.svg";
+
 export default function detail() {
   const [isLoading, setIsloading] = useState(true);
   const [open, setOpen] = useState(false);
@@ -45,7 +46,7 @@ export default function detail() {
     const docRef = doc(db, "berita", `${id}`);
     const docSnap = await getDoc(docRef);
     snapshot.current = docSnap.data();
-    setInterval(() => {
+    setTimeout(() => {
       setIsloading(false);
     }, 1000);
   };
@@ -82,83 +83,71 @@ export default function detail() {
                   <Image src={dilihat} width={20} alt={"#"} />
                   <h2 className="text-xs">{`Dilihat ${post.dilihat} kali`}</h2>
                 </div>
-
                 <div className="flex items-center gap-2">
                   <Image src={dibuat} width={20} alt={"#"} />
-                  <h3 title={post.tanggal_berita} className="uppercase text-xs">
-                    {`${dayjs(post.tanggal).fromNow()}`}
-                  </h3>
+                  <Tooltip content={post.tanggal_berita}>
+                    <h3 className="uppercase text-xs">
+                      {`${dayjs(post.tanggal).fromNow()}`}
+                    </h3>
+                  </Tooltip>
                 </div>
-              </div>
-              {email === "febriqgal@gmail.com" ? (
-                <div className="bottom-5 right-5 md:bottom-10  md:right-10 z-50  fixed flex flex-col items-start ">
-                  {/* modal hapus */}
-                  <Modal
-                    closeButton
-                    blur
-                    aria-labelledby="modal-title"
-                    open={visible}
-                    onClose={closeHandler}
-                  >
-                    <Modal.Header>
-                      <h1>Pemberitahuan</h1>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <h1 className="text-center m-auto">Yakin Menghapus?</h1>
-                      <button
-                        onClick={async () => {
-                          try {
-                            const docRef = doc(db, "berita", `${id}`);
-                            const storage = getStorage(app);
-                            const desertRef = ref(
-                              storage,
-                              `image/${post.gambar}`
-                            );
-                            await deleteObject(desertRef);
-                            await deleteDoc(docRef);
-
-                            route.replace("/");
-                            toast.success("Berhasil Menghapus Berita", {
-                              icon: "🎉",
-                            });
-                          } catch (error) {
-                            toast.error("Gagal Menghapus berita");
-                          }
-                        }}
-                      >
-                        Hapus
-                      </button>
-                    </Modal.Body>
-                  </Modal>
-                  <Link href={`${id}/edit/${post.judul_berita}`}>
-                    <button className=" bg-slate-50  px-2 pt-2 rounded-full">
-                      <Image
-                        color="white"
-                        src={Edit}
-                        alt={""}
-                        width={35}
-                        height={35}
-                      />
+                {email === "febriqgal@gmail.com" ? (
+                  <>
+                    <button
+                      onClick={() => {
+                        handler();
+                      }}
+                    >
+                      <Tooltip content={"Hapus"}>
+                        <Image width={20} src={hapus} alt={"#"} />
+                      </Tooltip>
                     </button>
-                  </Link>
+                    <Link href={`${id}/edit/${post.judul_berita}`}>
+                      <Tooltip content={"Edit"}>
+                        <Image width={20} src={edit} alt={"#"} />
+                      </Tooltip>
+                    </Link>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </div>
+              {/* modal hapus */}
+              <Modal
+                closeButton
+                blur
+                aria-labelledby="modal-title"
+                open={visible}
+                onClose={closeHandler}
+              >
+                <Modal.Header>
+                  <h1>Pemberitahuan</h1>
+                </Modal.Header>
+                <Modal.Body>
+                  <h1 className="text-center m-auto">Yakin Menghapus?</h1>
                   <button
-                    onClick={() => {
-                      handler();
+                    className="bg-red-500 py-1 px-4 rounded-lg text-white"
+                    onClick={async () => {
+                      try {
+                        const docRef = doc(db, "berita", `${id}`);
+                        const storage = getStorage(app);
+                        const desertRef = ref(storage, `image/${post.gambar}`);
+                        await deleteObject(desertRef);
+                        await deleteDoc(docRef);
+
+                        route.replace("/");
+                        toast.success("Berhasil Menghapus Berita", {
+                          icon: "🎉",
+                        });
+                      } catch (error) {
+                        toast.error("Gagal Menghapus berita");
+                      }
                     }}
-                    className="bg-slate-50 px-2 pt-2 rounded-full mt-2"
                   >
-                    <Image
-                      color="white"
-                      src={Sampah}
-                      alt={""}
-                      width={35}
-                      height={35}
-                    />
+                    Hapus
                   </button>
-                </div>
-              ) : (
-                <></>
-              )}
+                </Modal.Body>
+              </Modal>
             </div>
             <div className="mt-8 lg:grid lg:grid-cols-2 lg:gap-8">
               <div className="relative lg:row-start-1 lg:col-start-2">

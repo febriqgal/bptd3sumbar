@@ -13,11 +13,10 @@ import { toast, Toaster } from "react-hot-toast";
 import { db } from "../../../../server/firebaseSDK";
 import styles from "../../../../styles/Home.module.css";
 export default function detail() {
-  const { register, handleSubmit, control, reset } = useForm();
+  const { register, handleSubmit, control } = useForm();
   const [isLoading, setIsloading] = useState(true);
   const route = useRouter();
   const { id } = route.query;
-  const { editid } = route.query;
   const snapshot = useRef(null);
 
   dayjs.locale("id");
@@ -63,7 +62,7 @@ export default function detail() {
       <div className={styles.main}>
         <Toaster />
         <form
-          className="flex flex-col text-slate-900 w-full px-5"
+          className="flex flex-col text-slate-900 w-full px-5 sm:w-[500px]"
           onSubmit={handleSubmit(updateDataa)}
         >
           <label className="text-center mb-2">

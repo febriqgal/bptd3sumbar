@@ -1,15 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import { Disclosure } from "@headlessui/react";
+import "animate.css";
 import { getAuth } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useUser } from "../../context/user";
 import Menu from "../../public/menu.svg";
-import DropdownProfile from "./profile";
-import "animate.css";
 import top from "../../public/top.svg";
+import DropdownProfile from "./profile";
 
 export default function Navbar() {
   const user = getAuth().currentUser;
@@ -28,7 +27,7 @@ export default function Navbar() {
     { title: "Organisasi", href: "/organisasi" },
     { title: "Tugas dan Fungsi", href: "/tugas-dan-fungsi" },
     { title: "Kontak", href: "/kontak" },
-    { title: "Test", href: "/test" },
+    { title: "Download", href: "/download" },
   ];
 
   useEffect(() => {

@@ -4,15 +4,14 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { getAuth } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
+import Image from "next/image";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast, Toaster } from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 import LayoutAdmin from "../../components/layout-admin";
-import app, { db } from "../../server/firebaseSDK";
-import Image from "next/image";
 import homeroute from "../../public/homeroute.svg";
-import { motion } from "framer-motion";
+import app, { db } from "../../server/firebaseSDK";
 export default function Admin() {
   dayjs.locale("id");
   dayjs.extend(relativeTime);
@@ -52,49 +51,39 @@ export default function Admin() {
         <h1 className="text-xs">Admin / Tambah Berita</h1>
       </div>
       <Toaster />
-      <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          duration: 0.8,
-          delay: 0.5,
-          ease: [0, 0.71, 0.2, 1.01],
-        }}
+      <form
+        className="flex flex-col w-full md:w-[500px] m-auto pt-10 px-10"
+        onSubmit={handleSubmit(addDatafromDBFirestore)}
       >
-        <form
-          className="flex flex-col w-[500px] m-auto pt-10 px-10"
-          onSubmit={handleSubmit(addDatafromDBFirestore)}
-        >
-          <textarea
-            className="mb-2 py-1 px-3 w-full rounded-lg mr-2 shadow-lg"
-            placeholder="Masukan judul*"
-            control={control}
-            {...register("judul", { required: true })}
-          />
-          <div>
-            <label className="mr-2">Pilih Foto* :</label>
-            <input
-              className="mb-2 py-1 px-3 w-full rounded-lg mr-2 shadow-lg"
-              type="file"
-              {...register("gambar")}
-              onChange={(event) => {
-                setImageUpload(event.target.files[0]);
-              }}
-            />
-          </div>
-          <textarea
-            rows={"6"}
-            className="mb-2 py-1 px-3 w-full rounded-lg mr-2 shadow-lg"
-            placeholder="Masukan isi*"
-            control={control}
-            {...register("isi", { required: true })}
-          />
+        <textarea
+          className="mb-2 py-1 px-3 w-full rounded-lg mr-2 shadow-lg"
+          placeholder="Masukan judul*"
+          control={control}
+          {...register("judul", { required: true })}
+        />
+        <div>
+          <label className="mr-2">Pilih Foto* :</label>
           <input
-            className="hover:bg-gray-900 w-full duration-1000 shadow-lg hover:text-white mb-2 py-1 px-3 rounded-lg hover:cursor-pointer"
-            type="submit"
+            className="mb-2 py-1 px-3 w-full rounded-lg mr-2 shadow-lg"
+            type="file"
+            {...register("gambar")}
+            onChange={(event) => {
+              setImageUpload(event.target.files[0]);
+            }}
           />
-        </form>
-      </motion.div>
+        </div>
+        <textarea
+          rows={"6"}
+          className="mb-2 py-1 px-3 w-full rounded-lg mr-2 shadow-lg"
+          placeholder="Masukan isi*"
+          control={control}
+          {...register("isi", { required: true })}
+        />
+        <input
+          className="hover:bg-gray-900 w-full duration-1000 shadow-lg hover:text-white mb-2 py-1 px-3 rounded-lg hover:cursor-pointer"
+          type="submit"
+        />
+      </form>
     </LayoutAdmin>
   );
 }

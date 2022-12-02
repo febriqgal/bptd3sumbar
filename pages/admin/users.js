@@ -4,13 +4,12 @@ import "dayjs/locale/id";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { getAuth } from "firebase/auth";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import LayoutAdmin from "../../components/layout-admin";
+import homeroute from "../../public/homeroute.svg";
 import { db } from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
-import Image from "next/image";
-import homeroute from "../../public/homeroute.svg";
-import { motion } from "framer-motion";
 
 export default function Users() {
   const auth = getAuth();
@@ -25,7 +24,7 @@ export default function Users() {
     );
     const gettt = await getDocs(querySnapshot);
     snapshot.current = gettt.docs;
-    setInterval(() => {
+    setTimeout(() => {
       setIsloading(false);
     }, 1000);
   };
@@ -45,48 +44,35 @@ export default function Users() {
           <Loading color={"currentColor"} />
         </div>
       ) : (
-        <section>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.5,
-              ease: [0, 0.71, 0.2, 1.01],
-            }}
-          >
-            <div className="p-3 lg:p-10">
-              <Table>
-                <Table.Header>
-                  <Table.Column>No.</Table.Column>
-                  <Table.Column>Nama</Table.Column>
-                  <Table.Column>Email</Table.Column>
-                  <Table.Column>No. HP</Table.Column>
-                  <Table.Column>Bergabung</Table.Column>
-                </Table.Header>
-                <Table.Body>
-                  {snapshot.current.map((e, i) => {
-                    console.log(e.data());
-                    const users = e.data();
-                    const email = users.email;
-                    const nohp = users.nohp;
-                    const nama = users.nama;
-                    const tanggal = users.tanggal;
-                    return (
-                      <Table.Row key={i}>
-                        <Table.Cell>{i + 1 + "."}</Table.Cell>
-                        <Table.Cell>{nama}</Table.Cell>
-                        <Table.Cell>{email}</Table.Cell>
-                        <Table.Cell>{nohp}</Table.Cell>
-                        <Table.Cell>{dayjs(tanggal).fromNow()}</Table.Cell>
-                      </Table.Row>
-                    );
-                  })}
-                </Table.Body>
-              </Table>
-            </div>
-          </motion.div>
-        </section>
+        <div className="p-3 lg:p-10">
+          <Table>
+            <Table.Header>
+              <Table.Column>No.</Table.Column>
+              <Table.Column>Nama</Table.Column>
+              <Table.Column>Email</Table.Column>
+              <Table.Column>No. HP</Table.Column>
+              <Table.Column>Bergabung</Table.Column>
+            </Table.Header>
+            <Table.Body>
+              {snapshot.current.map((e, i) => {
+                const users = e.data();
+                const email = users.email;
+                const nohp = users.nohp;
+                const nama = users.nama;
+                const tanggal = users.tanggal;
+                return (
+                  <Table.Row key={i}>
+                    <Table.Cell>{i + 1 + "."}</Table.Cell>
+                    <Table.Cell>{nama}</Table.Cell>
+                    <Table.Cell>{email}</Table.Cell>
+                    <Table.Cell>{nohp}</Table.Cell>
+                    <Table.Cell>{dayjs(tanggal).fromNow()}</Table.Cell>
+                  </Table.Row>
+                );
+              })}
+            </Table.Body>
+          </Table>
+        </div>
       )}
     </LayoutAdmin>
   );

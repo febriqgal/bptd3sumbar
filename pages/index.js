@@ -23,7 +23,7 @@ export default function Index() {
         <div className="shadow-xl mx-5 my-8 rounded-md text-center">
           <div className="flex flex-col justify-center items-center">
             <div className="flex gap-2">
-              <Image src={populer} alt={"#"} />
+              <Image className="w-5" src={populer} alt={"#"} />
               <h1 className="font-bold">Berita Terpopuler</h1>
             </div>
             <div className="m-4">

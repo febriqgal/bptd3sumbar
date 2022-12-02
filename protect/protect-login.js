@@ -2,14 +2,14 @@
 /* eslint-disable react/display-name */
 import { useRouter } from "next/router";
 import { useUser } from "../context/user";
-const protectpengduan = (Pages) => {
+const protectLogin = (Pages) => {
   return (props) => {
     const user = useUser();
     const route = useRouter();
-    const { uid, email } = user;
+    const { uid } = user;
 
-    if (!uid  ) {
-      route.replace("/login");
+    if (uid) {
+      route.replace("/");
       return <></>;
     }
 
@@ -17,4 +17,4 @@ const protectpengduan = (Pages) => {
   };
 };
 
-export default protectpengduan;
+export default protectLogin;

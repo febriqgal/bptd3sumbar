@@ -39,7 +39,7 @@ export default function CarouselBerita() {
     );
     const gettt = await getDocs(querySnapshot);
     snapshot.current = gettt.docs;
-    setInterval(() => {
+    setTimeout(() => {
       setIsloading(false);
     }, 1000);
   };
@@ -65,8 +65,8 @@ export default function CarouselBerita() {
           className="lg:block hidden"
           isIntrinsicHeight={true}
           totalSlides={data.length}
-          visibleSlides={3}
-          step={1}
+          visibleSlides={4}
+          step={3}
           infinite={true}
         >
           <div className="w-full relative flex items-center justify-center">

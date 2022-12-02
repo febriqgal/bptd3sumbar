@@ -4,9 +4,9 @@ import { Loading } from "@nextui-org/react";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import withProtected from "../../hoc/withProtected";
+import protectAdmin from "../../protect/protect-admin";
 import berita from "../../public/berita.svg";
 import editprofile from "../../public/editprofile.svg";
 import home from "../../public/home.svg";
@@ -36,7 +36,7 @@ const LayoutAdmin = ({ children }) => {
     );
     const gettt = await getDocs(querySnapshot);
     Beritasnapshot.current = gettt.docs;
-    setInterval(() => {
+    setTimeout(() => {
       setIsloading(false);
     }, 1000);
   };
@@ -47,7 +47,7 @@ const LayoutAdmin = ({ children }) => {
     );
     const gettt = await getDocs(querySnapshot);
     Pengaduansnapshot.current = gettt.docs;
-    setInterval(() => {
+    setTimeout(() => {
       setIsloading(false);
     }, 1000);
   };
@@ -58,7 +58,7 @@ const LayoutAdmin = ({ children }) => {
     );
     const gettt = await getDocs(querySnapshot);
     Userssnapshot.current = gettt.docs;
-    setInterval(() => {
+    setTimeout(() => {
       setIsloading(false);
     }, 1000);
   };
@@ -69,7 +69,7 @@ const LayoutAdmin = ({ children }) => {
     getDataUsers();
   }, []);
   return (
-    <section>
+    <>
       <Toaster />
       <Head>
         <title>Admin - BPTD III SUMBAR</title>
@@ -111,7 +111,6 @@ const LayoutAdmin = ({ children }) => {
               ))}
             </nav>
           </div>
-
           <CardProfile />
         </div>
       </div>
@@ -161,8 +160,8 @@ const LayoutAdmin = ({ children }) => {
           <div>{children}</div>
         </div>
       </div>
-    </section>
+    </>
   );
 };
 
-export default withProtected(LayoutAdmin);
+export default protectAdmin(LayoutAdmin);

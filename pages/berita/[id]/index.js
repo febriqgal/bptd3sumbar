@@ -16,27 +16,22 @@ import Layout from "../../../components/Layout";
 import { useUser } from "../../../context/user";
 import dibuat from "../../../public/dibuat.svg";
 import dilihat from "../../../public/dilihat.svg";
-import Edit from "../../../public/edit.png";
+import edit from "../../../public/edit.svg";
+import hapus from "../../../public/hapus.svg";
 import penulis from "../../../public/penulis.svg";
-import Sampah from "../../../public/sampah.png";
 import app, { db } from "../../../server/firebaseSDK";
 import styles from "../../../styles/Home.module.css";
-import selengkapnya from "../../../public/selengkapnya.svg";
-import hapus from "../../../public/hapus.svg";
-import edit from "../../../public/edit.svg";
 
 export default function detail() {
   const [isLoading, setIsloading] = useState(true);
-  const [open, setOpen] = useState(false);
   const route = useRouter();
   const { id } = route.query;
   const users = useUser();
   const { email } = users;
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
   const handler = () => setVisible(true);
   const closeHandler = () => {
     setVisible(false);
-    console.log("closed");
   };
   const snapshot = useRef(null);
   dayjs.locale("id");
@@ -69,7 +64,6 @@ export default function detail() {
           <meta name="description" content={post.isi_berita} />
           <link rel="icon" href="/logo.png" />
         </Head>
-
         <div className="bg-white overflow-hidden rounded-b-xl mx-0 lg:mx-5 mb-5 mt-[84px]">
           <div className="relative max-w-7xl mx-auto py-5 px-5 sm:px-6 lg:px-8">
             <div className="hidden lg:block bg-gray-50 absolute top-0 bottom-0 left-3/4 w-screen" />
@@ -120,9 +114,6 @@ export default function detail() {
                 open={visible}
                 onClose={closeHandler}
               >
-                <Modal.Header>
-                  <h1>Pemberitahuan</h1>
-                </Modal.Header>
                 <Modal.Body>
                   <h1 className="text-center m-auto">Yakin Menghapus?</h1>
                   <button

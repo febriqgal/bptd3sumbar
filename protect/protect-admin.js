@@ -1,18 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/display-name */
 import Head from "next/head";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import { useUser } from "../context/user";
 
-const withProtected = (Pages) => {
+const protectAdmin = (Pages) => {
   return (props) => {
-    const user = useUser();
-    const route = useRouter();
-    const { uid } = user;
-    console.log(user.email);
-
-    if (!uid || user.email != "febriqgal@gmail.com") {
+    const { uid, email } = useUser();
+    if (!uid || email != "febriqgal@gmail.com") {
       return (
         <section>
           <Head>
@@ -44,7 +39,7 @@ const withProtected = (Pages) => {
                     href={"/"}
                     className="text-base font-medium text-indigo-600 hover:text-indigo-500"
                   >
-                    Go back home<span aria-hidden="true"></span>
+                    Beranda<span aria-hidden="true"></span>
                   </Link>
                 </div>
               </div>
@@ -58,4 +53,4 @@ const withProtected = (Pages) => {
   };
 };
 
-export default withProtected;
+export default protectAdmin;

@@ -19,7 +19,6 @@ import styles from "../../styles/Home.module.css";
 import dayjs from "dayjs";
 import "dayjs/locale/id";
 
-
 export default function Login() {
   const {
     register,
@@ -43,7 +42,7 @@ export default function Login() {
       });
       await updateProfile(auth.currentUser, { displayName: data.nama });
       await signOut(auth);
-      setInterval(async () => {
+      setTimeout(async () => {
         route.replace("/login");
       }, 2000);
     };

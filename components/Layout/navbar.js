@@ -9,7 +9,8 @@ import { useEffect, useState } from "react";
 import Menu from "../../public/menu.svg";
 import top from "../../public/top.svg";
 import DropdownProfile from "./profile";
-
+import pencarian from "../../public/pencarian.svg";
+import { Tooltip } from "@nextui-org/react";
 export default function Navbar() {
   const user = getAuth().currentUser;
   const route = useRouter();
@@ -26,8 +27,6 @@ export default function Navbar() {
     { title: "Sejarah", href: "/sejarah" },
     { title: "Organisasi", href: "/organisasi" },
     { title: "Tugas dan Fungsi", href: "/tugas-dan-fungsi" },
-    { title: "Kontak", href: "/kontak" },
-    { title: "Download", href: "/download" },
   ];
 
   useEffect(() => {
@@ -83,7 +82,7 @@ export default function Navbar() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1  items-center justify-center lg:justify-between">
+              <div className="flex flex-1  items-center justify-self-center justify-center lg:justify-between">
                 <div className="flex justify-center items-center">
                   <Link href={"/"}>
                     <div className="hover:cursor-pointer flex   flex-shrink-0 items-center">
@@ -99,7 +98,7 @@ export default function Navbar() {
                       />
                     </div>
                   </Link>
-                  <div className="ml-5 m-auto hidden lg:flex space-x-4">
+                  <div className="ml-5 m-auto hidden lg:flex space-x-4 justify-center place-items-center">
                     {navigation.map((e, i) => (
                       <Link
                         key={i}
@@ -109,6 +108,19 @@ export default function Navbar() {
                         {e.title}
                       </Link>
                     ))}
+                    <h1>|</h1>
+                    <Tooltip placement="bottom" content="Pencarian">
+                      <div className="justify-center flex px-5 rounded-md">
+                        <Image
+                          className="hover:cursor-pointer"
+                          onClick={() => {
+                            route.push("pencarian");
+                          }}
+                          src={pencarian}
+                          alt="#"
+                        />
+                      </div>
+                    </Tooltip>
                   </div>
                 </div>
                 <div className="my-auto right-0 top-4 hidden sm:ml-6 lg:block">
@@ -141,7 +153,16 @@ export default function Navbar() {
                     {e.title}
                   </Link>
                 ))}
-
+                <div className="border-2 justify-center flex px-5 py-2 rounded-md">
+                  <Image
+                    className="hover:cursor-pointer"
+                    onClick={() => {
+                      route.push("pencarian");
+                    }}
+                    src={pencarian}
+                    alt="#"
+                  />
+                </div>
                 <div className="m-auto mt-2">
                   <DropdownProfile />
                 </div>

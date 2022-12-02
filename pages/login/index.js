@@ -5,12 +5,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useUser } from "../../context/user";
+import { toast, Toaster } from "react-hot-toast";
+import protectLogin from "../../protect/protect-login";
 import app from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
-import { toast, Toaster } from "react-hot-toast";
 
-export default function Login() {
+const Login = () => {
   const tittlePage = "Login";
   const route = useRouter();
   const { register, handleSubmit, reset } = useForm();
@@ -104,4 +104,5 @@ export default function Login() {
       </div>
     </section>
   );
-}
+};
+export default protectLogin(Login);

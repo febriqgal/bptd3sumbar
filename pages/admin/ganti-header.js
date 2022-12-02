@@ -7,7 +7,6 @@ import { v4 as uuidv4 } from "uuid";
 import LayoutAdmin from "../../components/layout-admin";
 import homeroute from "../../public/homeroute.svg";
 import { db } from "../../server/firebaseSDK";
-import { motion } from "framer-motion";
 export default function UploadHeader() {
   const uid = uuidv4();
   const storage = getStorage();
@@ -28,34 +27,24 @@ export default function UploadHeader() {
         <Image width={20} src={homeroute} alt={"#"} />
         <h1 className="text-xs">Admin / Ganti Header</h1>
       </div>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          duration: 0.8,
-          delay: 0.5,
-          ease: [0, 0.71, 0.2, 1.01],
-        }}
+
+      <form
+        className="flex flex-col w-full md:w-[500px] m-auto pt-10 px-10"
+        onSubmit={handleSubmit(addDataImageHeader)}
       >
-        <form
-          className="flex flex-col w-[500px] m-auto pt-10 px-10"
-          onSubmit={handleSubmit(addDataImageHeader)}
-        >
-          {" "}
-          <input
-            className="mb-2 py-1 px-3 w-full rounded-lg mr-2 shadow-lg"
-            type="file"
-            {...register("gambarheader")}
-            onChange={(event) => {
-              setImageUploadHeader(event.target.files[0]);
-            }}
-          ></input>
-          <input
-            className="hover:bg-gray-900 w-full mt-2 duration-1000 shadow-lg hover:text-white mb-2 py-1 px-3 rounded-lg hover:cursor-pointer"
-            type="submit"
-          />
-        </form>
-      </motion.div>
+        <input
+          className="mb-2 py-1 px-3 w-full rounded-lg mr-2 shadow-lg"
+          type="file"
+          {...register("gambarheader")}
+          onChange={(event) => {
+            setImageUploadHeader(event.target.files[0]);
+          }}
+        ></input>
+        <input
+          className="hover:bg-gray-900 w-full mt-2 duration-1000 shadow-lg hover:text-white mb-2 py-1 px-3 rounded-lg hover:cursor-pointer"
+          type="submit"
+        />
+      </form>
     </LayoutAdmin>
   );
 }

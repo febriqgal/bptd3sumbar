@@ -1,5 +1,3 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/outline";
 import dayjs from "dayjs";
 import "dayjs/locale/id";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -7,14 +5,13 @@ import { getAuth } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast, Toaster } from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
-import protectpengduan from "../hoc/protectpengduan";
+import protectPengaduan from "../protect/protect-pengaduan";
 import app, { db } from "../server/firebaseSDK";
 import styles from "../styles/Home.module.css";
-import { toast, Toaster } from "react-hot-toast";
 
 const Tambahpengaduan = () => {
   const [isDisable, setDisable] = useState(false);
@@ -96,4 +93,4 @@ const Tambahpengaduan = () => {
     </div>
   );
 };
-export default protectpengduan(Tambahpengaduan);
+export default protectPengaduan(Tambahpengaduan);

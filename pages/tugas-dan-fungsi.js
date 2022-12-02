@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import "animate.css";
 import Head from "next/head";
 import Layout from "../components/Layout";
 
@@ -13,7 +12,7 @@ export default function Tugasdanfungsi() {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="px-5 py-5 lg:px-80 mt-[84px]">
-        <h1 className="text-center pb-5 font-black text-4xl animate__animated animate__fadeInLeft">
+        <h1 className="text-center pb-5 font-black text-4xl">
           Tugas dan Fungsi
         </h1>
 

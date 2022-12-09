@@ -10,18 +10,19 @@ import {
   getDocs,
   orderBy,
   query,
-  updateDoc,
+  updateDoc
 } from "firebase/firestore";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import Layout from "../../components/Layout";
+import Layout from "../../components/layout";
 import dibuat from "../../public/dibuat.svg";
 import penulis from "../../public/penulis.svg";
 import { db } from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
 export default function LayouUser() {
+  const route = useRouter();
   dayjs.locale("id");
   dayjs.extend(relativeTime);
   const snapshot = useRef(null);
@@ -59,7 +60,7 @@ export default function LayouUser() {
           <link rel="icon" href="/logo.png" />
         </Head>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  py-5 px-5 gap-3 mt-[84px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-5 px-5 gap-5 mt-[84px]">
           {data.map((e, i) => {
             const Data = e.data();
             return (
@@ -69,13 +70,19 @@ export default function LayouUser() {
               >
                 <div className="overflow-clip rounded-t-lg rounded-br-3xl shadow-xl">
                   <img
-                    className="object-cover h-48 w-full hover:scale-110 duration-1000"
+                    onClick={async () => {
+                      route.push(`/berita/${e.id}`);
+                      const frankDocRef = doc(db, "berita", `${e.id}`);
+                      await updateDoc(frankDocRef, {
+                        dilihat: Data.dilihat + 1,
+                      });
+                    }}
+                    className="object-cover h-48 w-full hover:scale-110 duration-1000 hover:cursor-pointer"
                     src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/image%2F${Data.gambar}?alt=media&token=e6aed1f9-4cad-4985-b739-dcf2fcd3e7de`}
                     alt={"#"}
                   />
                 </div>
-
-                <div className="px-5 py-8">
+                <div className="px-5 py-5">
                   <div className="justify-between mb-4">
                     <h5 className="text-gray-900 text-xl font-bold">
                       <div className={styles.truncate2}>
@@ -99,22 +106,9 @@ export default function LayouUser() {
                       </div>
                     </div>
                   </div>
-                  <h1 className="text-gray-700  h-20 text-base mb-4">
-                    <div className={styles.truncate3}>{Data.isi_berita}</div>
-                  </h1>
-
-                  <Link
-                    onClick={async () => {
-                      const frankDocRef = doc(db, "berita", `${e.id}`);
-                      await updateDoc(frankDocRef, {
-                        dilihat: Data.dilihat + 1,
-                      });
-                    }}
-                    href={`/berita/${e.id}`}
-                    className="shadow-xl hover:bg-slate-900 hover:text-slate-50 hover:duration-1000  text-xs py-2 px-4 rounded-lg"
-                  >
-                    Selengkapnya
-                  </Link>
+                  <div className="text-gray-700  h-20 text-base">
+                    <h1 className={styles.truncate3}>{Data.isi_berita}</h1>
+                  </div>
                 </div>
               </div>
             );

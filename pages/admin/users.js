@@ -65,7 +65,7 @@ export default function Users() {
                     <Table.Cell>{i + 1 + "."}</Table.Cell>
                     <Table.Cell>{nama}</Table.Cell>
                     <Table.Cell>{email}</Table.Cell>
-                    <Table.Cell>{nohp}</Table.Cell>
+                    <Table.Cell>{`${nohp}`.slice(0, 15)}</Table.Cell>
                     <Table.Cell>{dayjs(tanggal).fromNow()}</Table.Cell>
                   </Table.Row>
                 );

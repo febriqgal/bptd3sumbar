@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import React from "react";
 import { Tooltip } from "@nextui-org/react";
 import Link from "next/link";
 export default function Footer() {
@@ -53,8 +54,8 @@ export default function Footer() {
     ],
   };
   return (
-    <div className="relative bottom-0 w-full">
-      <footer className="bg-slate-900">
+    <footer className="relative bottom-0 w-full">
+      <div className="bg-slate-900">
         <div className="flex flex-col md:flex-row justify-between pt-10 px-5">
           <div className="space-y-8 xl:col-span-1 mr-10 mb-10 md:mb-0  w-[320px]">
             <img
@@ -114,7 +115,7 @@ export default function Footer() {
             © {Year} - Febriqgal
           </h1>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   );
 }

@@ -6,8 +6,10 @@ import { useForm } from "react-hook-form";
 import app from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
 import { toast, Toaster } from "react-hot-toast";
-import withProtected from "../../hoc/withProtected";
-const Updatenameuser = () => {
+import protectLogin from "../../protect/protect-login";
+import { useRouter } from "next/router";
+const GantiNama = () => {
+  const route = useRouter();
   const [isDisable, setDisable] = useState(false);
   const { register, handleSubmit, control } = useForm();
   const auth = getAuth(app);
@@ -18,6 +20,9 @@ const Updatenameuser = () => {
         displayName: data.nama,
       });
       setDisable(true);
+      setTimeout(() => {
+        route.replace("/");
+      }, 2000);
     };
     toast.promise(push(), {
       loading: "Mohon tunggu",
@@ -44,14 +49,16 @@ const Updatenameuser = () => {
             defaultValue={`${user.displayName}`}
             {...register("nama", { required: true, disabled: isDisable })}
           />
-          <input
+          <button
             className="hover:bg-gray-900 duration-1000 shadow-lg hover:text-white mb-2 py-1 px-3 rounded-lg hover:cursor-pointer"
             type="submit"
             disabled={isDisable}
-          />
+          >
+            Kirim
+          </button>
         </form>
       </div>
     </>
   );
 };
-export default withProtected(Updatenameuser);
+export default protectLogin(GantiNama);

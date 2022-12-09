@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
-import Layout from "../../../components/Layout";
+import Layout from "../../../components/layout";
 import { useUser } from "../../../context/user";
 import dibuat from "../../../public/dibuat.svg";
 import dilihat from "../../../public/dilihat.svg";

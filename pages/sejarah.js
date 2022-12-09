@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-
 import Head from "next/head";
 import React from "react";
-import Layout from "../components/Layout";
+import Layout from "../components/layout";
 export default function Sejarah() {
   const titlePage = "Sejarah";
   return (

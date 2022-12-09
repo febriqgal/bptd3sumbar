@@ -6,11 +6,10 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast, Toaster } from "react-hot-toast";
-import protectLogin from "../../protect/protect-login";
 import app from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
 
-const Login = () => {
+export default function Login() {
   const tittlePage = "Login";
   const route = useRouter();
   const { register, handleSubmit, reset } = useForm();
@@ -24,7 +23,7 @@ const Login = () => {
       }, 2000);
     };
     toast.promise(push(), {
-      loading: "Mohon tunggu...",
+      loading: "Mosssshon tunggu...",
       success: <b>Berhasil login</b>,
       error: (error) => {
         if (error.code === "auth/wrong-password") {
@@ -104,5 +103,4 @@ const Login = () => {
       </div>
     </section>
   );
-};
-export default protectLogin(Login);
+}

@@ -1,15 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import { Menu, Transition } from "@headlessui/react";
+import { getAuth, signOut } from "firebase/auth";
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Fragment } from "react";
 import { useUser } from "../../context/user";
-import { signOut, getAuth } from "firebase/auth";
-import { useRouter } from "next/router";
-import Image from "next/image";
-import ubahnama from "../../public/editprofile.svg";
 import admin from "../../public/admin.svg";
-import pencarian from "../../public/pencarian.svg";
-export default function DropdownProfile() {
+import ubahnama from "../../public/editprofile.svg";
+export default function Dropdownprofile() {
   const { uid, email } = useUser();
   const userC = useUser();
   const auth = getAuth();

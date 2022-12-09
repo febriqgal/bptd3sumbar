@@ -5,15 +5,16 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { getAuth, updateProfile } from "firebase/auth";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast, Toaster } from "react-hot-toast";
+import protectLogin from "../../protect/protect-login";
 import app from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
-import { toast, Toaster } from "react-hot-toast";
-import withProtected from "../../hoc/withProtected";
+import { useRouter } from "next/router";
 
-const Admin = () => {
+const GantiProfile = () => {
+  const route = useRouter();
   const [isDisable, setDisable] = useState(false);
   const { register, handleSubmit, control } = useForm();
   const auth = getAuth();
@@ -31,6 +32,9 @@ const Admin = () => {
         photoURL: `https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/profile%2F${user.uid}?alt=media&token=2ed1037c-2a23-462f-ada1-262a451fcdd0`,
       });
       setDisable(true);
+      setTimeout(() => {
+        route.replace("/");
+      }, 2000);
     };
     toast.promise(push(), {
       loading: "Mohon tunggu...",
@@ -79,4 +83,4 @@ const Admin = () => {
     </>
   );
 };
-export default withProtected(Admin);
+export default protectLogin(GantiProfile);

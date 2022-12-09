@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Menu from "../../public/menu.svg";
 import top from "../../public/top.svg";
-import DropdownProfile from "./profile";
+import Dropdownprofile from "./profile";
 import pencarian from "../../public/pencarian.svg";
 import { Tooltip } from "@nextui-org/react";
 export default function Navbar() {
@@ -53,7 +53,9 @@ export default function Navbar() {
       {backgroundTransparacyVar > 0.5 ? (
         <div className="animate__animated animate__backInDown fixed bottom-5 right-5 z-[99] bg-slate-900 rounded-full shadow-2xl p-2">
           <Link href={"#"}>
-            <Image src={top} alt={"#"} />
+            <Tooltip content={"Top"} placement={"left"}>
+              <Image src={top} alt={"#"} />
+            </Tooltip>
           </Link>
         </div>
       ) : (
@@ -127,7 +129,7 @@ export default function Navbar() {
                   {/* Profile dropdown */}
                   <div className="relative ml-3">
                     {user ? (
-                      <DropdownProfile />
+                      <Dropdownprofile />
                     ) : (
                       <button
                         onClick={async () => {
@@ -164,7 +166,7 @@ export default function Navbar() {
                   />
                 </div>
                 <div className="m-auto mt-2">
-                  <DropdownProfile />
+                  <Dropdownprofile />
                 </div>
               </div>
             </Disclosure.Panel>

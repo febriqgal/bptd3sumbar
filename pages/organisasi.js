@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
 import { useState } from "react";
-import Layout from "../components/Layout";
+import Layout from "../components/layout";
 export default function Organisasi() {
   const people = [
     {

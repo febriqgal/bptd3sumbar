@@ -1,4 +1,4 @@
-import Layout from "../components/Layout/index";
+import Layout from "../components/layout/index";
 import Styles from "../styles/Home.module.css";
 import Head from "next/head";
 export default function Kontak() {

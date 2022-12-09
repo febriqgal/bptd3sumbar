@@ -1,4 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
+import dayjs from "dayjs";
+import "dayjs/locale/id";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -11,13 +13,8 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast, Toaster } from "react-hot-toast";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
-import "react-phone-number-input/style.css";
 import FirebaseApp, { db } from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
-import dayjs from "dayjs";
-import "dayjs/locale/id";
 
 export default function Login() {
   const {
@@ -37,7 +34,7 @@ export default function Login() {
         uid: auth.currentUser.uid,
         nama: data.nama,
         email: data.email,
-        nohp: nohp,
+        nohp: data.nohp,
         tanggal: dayjs().format(),
       });
       await updateProfile(auth.currentUser, { displayName: data.nama });
@@ -96,20 +93,17 @@ export default function Login() {
                 />
 
                 <input
-                  className="py-2 px-4 rounded-lg w-full shadow-xl text-slate-900"
+                  className="mb-2 py-2 px-4 rounded-lg w-full shadow-xl text-slate-900"
                   type="password"
                   placeholder="Password"
                   {...register("password", { required: true })}
                 />
-
-                <PhoneInput
-                  country={"id"}
-                  value={nohp}
-                  onlyCountries={["id"]}
-                  containerStyle={{ marginTop: 18, borderRadius: 8 }}
-                  inputStyle={{ width: "100%" }}
-                  countryCodeEditable={false}
-                  onChange={(phone) => setnohp(phone)}
+                <input
+                  className="py-2 px-4 rounded-lg w-full shadow-xl text-slate-900"
+                  type={"tel"}
+                  maxLength={15}
+                  placeholder="No. Handphone / WA"
+                  {...register("nohp", { required: true })}
                 />
               </div>
               <div className="text-center"></div>

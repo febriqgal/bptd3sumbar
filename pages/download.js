@@ -1,5 +1,5 @@
 import Marquee from "react-fast-marquee";
-import Layout from "../components/Layout";
+import Layout from "../components/layout";
 import Styles from "../styles/Home.module.css";
 export default function test() {
   return (

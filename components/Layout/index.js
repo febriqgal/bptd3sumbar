@@ -1,4 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
+import { Tooltip } from "@nextui-org/react";
 import { motion, useScroll, useSpring } from "framer-motion";
+import Link from "next/link";
 import React from "react";
 import Footer from "./footer";
 import Navbar from "./navbar";
@@ -13,7 +16,7 @@ export default function Layout({ children }) {
     <div>
       <Navbar />
       <motion.div
-        className="progress-bar bg-gradient-to-r from-[#2D3082]  to-[#FBD107] bottom-0 h-1 z-[99999] rounded-full fixed left-0 right-0 origin-top"
+        className="progress-bar bg-gradient-to-r from-[#2d3082]  to-[#fbd107] bottom-0 h-1 z-[99999] rounded-full fixed left-0 right-0 origin-top"
         style={{ scaleX }}
       />
       <motion.div

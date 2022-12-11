@@ -6,8 +6,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>BPTD III SUMBAR</title>
-        <meta name="description" content="BPTD III SUMBAR" />
+        <title>BPTD III Sumbar</title>
+        <meta name="description" content="BPTD III Sumbar" />
         <link rel="icon" href="/logo.png" />
       </Head>
       <UserProvider>

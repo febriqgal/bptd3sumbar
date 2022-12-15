@@ -77,7 +77,7 @@ const LayoutAdmin = ({ children }) => {
         <link rel="icon" href="/logo.png" />
       </Head>
       {/* Mobile */}
-      <div className="md:hidden w-full py-2 m-auto items-center bottom-1 fixed">
+      <div className="md:hidden w-full py-2 m-auto items-center bottom-1 fixed ">
         <div className="shadow-xl mx-5 p-5 flex justify-between rounded-lg">
           {navigation.map((e, i) => (
             <Link className="flex justify-around" key={i} href={e.href}>

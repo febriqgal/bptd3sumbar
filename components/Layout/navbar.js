@@ -22,7 +22,6 @@ export default function Navbar() {
   const navigation = [
     { title: "Beranda", href: "/" },
     { title: "Berita", href: "/berita" },
-    { title: "Kegiatan", href: "/kegiatan" },
     { title: "Pengaduan", href: "/pengaduan" },
     { title: "Sejarah", href: "/sejarah" },
     { title: "Organisasi", href: "/organisasi" },
@@ -53,9 +52,7 @@ export default function Navbar() {
       {backgroundTransparacyVar > 0.5 ? (
         <div className="animate__animated animate__backInDown fixed bottom-5 right-5 z-[99] bg-slate-900 rounded-full shadow-2xl p-2">
           <Link href={"#"}>
-            <Tooltip content={"Top"} placement={"left"}>
-              <Image src={top} alt={"#"} />
-            </Tooltip>
+            <Image title="kembali keatas" src={top} alt={"#"} />
           </Link>
         </div>
       ) : (
@@ -86,8 +83,8 @@ export default function Navbar() {
               </div>
               <div className="flex flex-1  items-center justify-self-center justify-center lg:justify-between">
                 <div className="flex justify-center items-center">
-                  <Link href={"/"}>
-                    <div className="hover:cursor-pointer flex   flex-shrink-0 items-center">
+                  <Link title="Beranda BPTD III Sumbar" href={"/"}>
+                    <div className="hover:cursor-pointer flex flex-shrink-0 items-center">
                       <img
                         className="block h-12 lg:hidden"
                         src="https://hubdat.dephub.go.id/static/images/logo_sites.cd63aebaf36b.png"

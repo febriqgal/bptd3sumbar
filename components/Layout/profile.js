@@ -15,32 +15,33 @@ export default function Dropdownprofile() {
   const route = useRouter();
   return (
     <Menu as="div" className="flex place-items-center flex-col text-left">
-      <div>
-        <Menu.Button className={"h-10 w-10 rounded-full overflow-clip"}>
-          {uid ? (
-            <img
-              loading={"eager"}
-              className="object-cover scale-[1.13] h-full w-full rounded-full hover:cursor-pointer"
-              src={
-                userC.photoURL
-                  ? userC.photoURL
-                  : "https://www.pngitem.com/pimgs/m/35-350426_profile-icon-png-default-profile-picture-png-transparent.png"
-              }
-              alt="1"
-            />
-          ) : (
-            <img
-              title="Login"
-              loading={"eager"}
-              className="object-cover h-full w-full rounded-full hover:cursor-pointer"
-              src={
-                "https://www.pngitem.com/pimgs/m/35-350426_profile-icon-png-default-profile-picture-png-transparent.png"
-              }
-              alt="2"
-            />
-          )}
-        </Menu.Button>
-      </div>
+      <Menu.Button
+        title="Akun"
+        className={"h-10 w-10 rounded-full overflow-clip"}
+      >
+        {uid ? (
+          <img
+            loading={"eager"}
+            className="object-cover scale-[1.13] h-full w-full rounded-full hover:cursor-pointer"
+            src={
+              userC.photoURL
+                ? userC.photoURL
+                : "https://www.pngitem.com/pimgs/m/35-350426_profile-icon-png-default-profile-picture-png-transparent.png"
+            }
+            alt="1"
+          />
+        ) : (
+          <img
+            title="Login"
+            loading={"eager"}
+            className="object-cover h-full w-full rounded-full hover:cursor-pointer"
+            src={
+              "https://www.pngitem.com/pimgs/m/35-350426_profile-icon-png-default-profile-picture-png-transparent.png"
+            }
+            alt="2"
+          />
+        )}
+      </Menu.Button>
       <Transition
         as={Fragment}
         enter="transition ease-out duration-100"

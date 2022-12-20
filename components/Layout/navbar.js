@@ -24,7 +24,7 @@ export default function Navbar() {
     { title: "Berita", href: "/berita" },
     { title: "Pengaduan", href: "/pengaduan" },
     { title: "Sejarah", href: "/sejarah" },
-    { title: "Organisasi", href: "/organisasi" },
+    { title: "Struktur Organisasi", href: "/organisasi" },
     { title: "Tugas dan Fungsi", href: "/tugas-dan-fungsi" },
   ];
 

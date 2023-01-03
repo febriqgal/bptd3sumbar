@@ -21,16 +21,16 @@ export default function Admin() {
   const user = auth.currentUser;
   const [imageUpload, setImageUpload] = useState();
   const storage = getStorage(app);
-  const storageRef = ref(storage, `image/${uid}`);
+  const storageRef = ref(storage, `image/berita/${uid}`);
 
   const addDatafromDBFirestore = async (data) => {
     const push = async () => {
       if (imageUpload == null) return;
       await uploadBytes(storageRef, imageUpload);
       await addDoc(collection(db, "berita"), {
-        judul_berita: data.judul,
-        isi_berita: data.isi,
-        penulis_berita: user.displayName,
+        judul: data.judul,
+        isi: data.isi,
+        penulis: user.displayName,
         tanggal_berita: dayjs().format("ddd, MMM D, YYYY HH:mm"),
         tanggal: dayjs().format(),
         dilihat: 0,

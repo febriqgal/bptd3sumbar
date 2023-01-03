@@ -7,15 +7,17 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
-import Layout from "../components/layout";
-import { useUser } from "../context/user";
-import { db } from "../server/firebaseSDK";
+import Layout from "../../components/layout";
+import { useUser } from "../../context/user";
+import { db } from "../../server/firebaseSDK";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "../styles/Home.module.css";
-import tambahpengaduan from "../public/tambahpengaduan.svg";
+import styles from "../../styles/Home.module.css";
+import tambahpengaduan from "../../public/tambahpengaduan.svg";
+import { useRouter } from "next/router";
 export default function LayouUser() {
   const user = useUser();
+  const route = useRouter();
   dayjs.locale("id");
   dayjs.extend(relativeTime);
   const snapshot = useRef(null);
@@ -56,7 +58,7 @@ export default function LayouUser() {
           <div className="flex justify-center gap-2">
             <Image className="w-5" src={tambahpengaduan} alt={"#"} />
             <Link
-              href={!user ? "/login" : "/tambah-pengaduan"}
+              href={!user ? "/login" : "/pengaduan/tambah-pengaduan"}
               className="text-center justify-self-center hover:bg-slate-900 hover:text-white py-1 px-2 rounded-lg"
             >
               Tambah Pengaduan
@@ -66,13 +68,16 @@ export default function LayouUser() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-5 px-5 gap-3">
             {data.map((e, i) => {
               const items = e.data();
-              const isi = items.isi_pengaduan;
-              const judul = items.judul_pengaduan;
+              const isi = items.isi;
+              const judul = items.judul;
 
               return (
                 <div
                   key={i}
-                  className="mx-auto w-full rounded-xl shadow-lg bg-white max-w-sm"
+                  className="mx-auto w-full rounded-xl shadow-lg bg-white max-w-sm hover:cursor-pointer"
+                  onClick={() => {
+                    route.push(`/pengaduan/${e.id}`);
+                  }}
                 >
                   <div className="px-5 py-8">
                     <div className="justify-between mb-4">

@@ -78,22 +78,20 @@ export default function LayouUser() {
                       });
                     }}
                     className="object-cover h-48 w-full hover:scale-110 duration-1000 hover:cursor-pointer"
-                    src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/image%2F${Data.gambar}?alt=media&token=e6aed1f9-4cad-4985-b739-dcf2fcd3e7de`}
+                    src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-5025f.appspot.com/o/image%2Fberita%2F${Data.gambar}?alt=media&token=1b8521e3-56c7-4939-8a65-d3ad8da849cf`}
                     alt={"#"}
                   />
                 </div>
                 <div className="px-5 py-5">
                   <div className="justify-between mb-4">
                     <h5 className="text-gray-900 text-xl font-bold">
-                      <div className={styles.truncate2}>
-                        {Data.judul_berita}
-                      </div>
+                      <div className={styles.truncate2}>{Data.judul}</div>
                     </h5>
                     <div className="flex justify-between mt-1">
                       <div className="flex items-center gap-2">
                         <Image src={penulis} width={20} alt={"#"} />
                         <h5 className="text-gray-900 text-xs font-medium ">
-                          {Data.penulis_berita}
+                          {Data.penulis}
                         </h5>
                       </div>
                       <div className="flex items-center gap-2">
@@ -107,7 +105,7 @@ export default function LayouUser() {
                     </div>
                   </div>
                   <div className="text-gray-700  h-20 text-base">
-                    <h1 className={styles.truncate3}>{Data.isi_berita}</h1>
+                    <h1 className={styles.truncate3}>{Data.isi}</h1>
                   </div>
                 </div>
               </div>

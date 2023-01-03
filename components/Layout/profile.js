@@ -9,8 +9,6 @@ import { useUser } from "../../context/user";
 import admin from "../../public/admin.svg";
 import ubahnama from "../../public/editprofile.svg";
 export default function Dropdownprofile() {
-  const { uid, email } = useUser();
-  const userC = useUser();
   const auth = getAuth();
   const route = useRouter();
   return (
@@ -19,13 +17,13 @@ export default function Dropdownprofile() {
         title="Akun"
         className={"h-10 w-10 rounded-full overflow-clip"}
       >
-        {uid ? (
+        {auth.currentUser ? (
           <img
             loading={"eager"}
             className="object-cover scale-[1.13] h-full w-full rounded-full hover:cursor-pointer"
             src={
-              userC.photoURL
-                ? userC.photoURL
+              auth.currentUser.photoURL
+                ? auth.currentUser.photoURL
                 : "https://www.pngitem.com/pimgs/m/35-350426_profile-icon-png-default-profile-picture-png-transparent.png"
             }
             alt="1"
@@ -60,7 +58,7 @@ export default function Dropdownprofile() {
               <h1 className="text-xs">{auth.currentUser?.email ?? "-"}</h1>
               <hr className="my-2 mx-4" />
               <Menu.Item>
-                {email === "febriqgal@gmail.com" ? (
+                {auth.currentUser.email === "febriqgal@gmail.com" ? (
                   <div className="flex ml-3 gap-1 mb-1">
                     <Image src={admin} alt={"#"} />
                     <Link
@@ -74,7 +72,7 @@ export default function Dropdownprofile() {
                   <></>
                 )}
               </Menu.Item>
-              {!uid ? (
+              {!auth.currentUser ? (
                 <></>
               ) : (
                 <div>
@@ -100,12 +98,23 @@ export default function Dropdownprofile() {
                       </Link>
                     </div>
                   </Menu.Item>
+                  <Menu.Item>
+                    <div className="flex ml-3 gap-1 mb-1">
+                      <Image src={ubahnama} alt={"#"} />
+                      <Link
+                        href={"/edit-profile/ganti-password"}
+                        className="hover:bg-slate-900 hover:text-white px-2 py-1 rounded-lg text-left text-sm"
+                      >
+                        Ubah Password
+                      </Link>
+                    </div>
+                  </Menu.Item>
 
                   <hr className="mx-4" />
                 </div>
               )}
               <Menu.Item>
-                {!uid ? (
+                {!auth.currentUser ? (
                   <button
                     className="hover:bg-red-500 my-1 hover:text-white px-3 py-2 rounded-lg w-full text-red-500 text-sm"
                     onClick={async () => {

@@ -29,29 +29,37 @@ export default function ComCarouselHeader() {
       <SwiperSlide>
         <img
           className="object-cover h-full w-full"
-          src="http://dephub.go.id/photos/resized/600x340/pelantikan-pejabat.jpg"
-          alt="s"
+          src={
+            "https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-5025f.appspot.com/o/image%2Fheader%2F1?alt=media&token=65eb34a3-68a9-40e2-aa91-8f6381a7e4c1"
+          }
+          alt="#"
         />
       </SwiperSlide>
       <SwiperSlide>
         <img
           className="object-cover h-full w-full"
-          src="https://dishub.jakarta.go.id/wp-content/uploads/2020/07/109916429_2049242598545694_4648979507240775700_o.jpg"
-          alt="s"
+          src={
+            "https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-5025f.appspot.com/o/image%2Fheader%2F2?alt=media&token=65eb34a3-68a9-40e2-aa91-8f6381a7e4c1"
+          }
+          alt="#"
         />
       </SwiperSlide>
       <SwiperSlide>
         <img
           className="object-cover h-full w-full"
-          src="https://images.bisnis-cdn.com/posts/2021/09/03/1437380/kemenhub-gedung.jpg"
-          alt="s"
+          src={
+            "https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-5025f.appspot.com/o/image%2Fheader%2F3?alt=media&token=65eb34a3-68a9-40e2-aa91-8f6381a7e4c1"
+          }
+          alt="#"
         />
       </SwiperSlide>{" "}
       <SwiperSlide>
         <img
           className="object-cover h-full w-full"
-          src="https://asset.kompas.com/crops/XnmGK3yIooeOIeOk5ewYErp2KsI=/258x0:798x360/750x500/data/photo/2020/06/11/5ee192520867f.jpg"
-          alt="s"
+          src={
+            "https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-5025f.appspot.com/o/image%2Fheader%2F4?alt=media&token=65eb34a3-68a9-40e2-aa91-8f6381a7e4c1"
+          }
+          alt="#"
         />
       </SwiperSlide>
     </Swiper>

@@ -118,8 +118,8 @@ export default function CarouselBerita() {
                       >
                         <div className="flex flex-shrink-0 relative h-[200px] sm:w-auto">
                           <img
-                            src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/image%2F${gambar}?alt=media&token=e6aed1f9-4cad-4985-b739-dcf2fcd3e7de`}
-                            alt="black chair and white table"
+                            src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-5025f.appspot.com/o/image%2Fberita%2F${gambar}?alt=media&token=1b8521e3-56c7-4939-8a65-d3ad8da849cf`}
+                            alt="#"
                             className="object-cover object-center w-full  rounded-lg"
                           />
                           <div className="absolute bottom-2 left-2 right-2 rounded-lg backdrop-blur-md">
@@ -307,8 +307,8 @@ export default function CarouselBerita() {
                       >
                         <div className="flex flex-shrink-0 relative w-full h-52 rounded-lg">
                           <img
-                            src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/image%2F${gambar}?alt=media&token=e6aed1f9-4cad-4985-b739-dcf2fcd3e7de`}
-                            alt="black chair and white table"
+                            src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-5025f.appspot.com/o/image%2Fberita%2F${gambar}?alt=media&token=1b8521e3-56c7-4939-8a65-d3ad8da849cf`}
+                            alt="#"
                             className="object-cover object-center w-full rounded-lg"
                           />
 

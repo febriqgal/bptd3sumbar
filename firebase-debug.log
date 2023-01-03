@@ -1,0 +1,35 @@
+[debug] [2022-12-29T15:38:10.895Z] ----------------------------------------------------------------------
+[debug] [2022-12-29T15:38:10.896Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\febri\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2022-12-29T15:38:10.897Z] CLI Version:   11.19.0
+[debug] [2022-12-29T15:38:10.897Z] Platform:      win32
+[debug] [2022-12-29T15:38:10.897Z] Node Version:  v18.12.1
+[debug] [2022-12-29T15:38:10.898Z] Time:          Thu Dec 29 2022 22:38:10 GMT+0700 (Waktu Indonesia Barat)
+[debug] [2022-12-29T15:38:10.898Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-12-29T15:38:10.956Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-12-29T15:38:10.957Z] > authorizing via signed-in user (febriqgal@gmail.com)
+[debug] [2022-12-29T15:38:10.957Z] [iam] checking project bptd3sumbar-5025f for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2022-12-29T15:38:10.959Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/bptd3sumbar-5025f:testIamPermissions [none]
+[debug] [2022-12-29T15:38:10.959Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/bptd3sumbar-5025f:testIamPermissions x-goog-quota-user=projects/bptd3sumbar-5025f
+[debug] [2022-12-29T15:38:10.959Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/bptd3sumbar-5025f:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2022-12-29T15:38:12.042Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/bptd3sumbar-5025f:testIamPermissions 200
+[debug] [2022-12-29T15:38:12.042Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/bptd3sumbar-5025f:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2022-12-29T15:38:12.043Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/bptd3sumbar-5025f/serviceAccounts/bptd3sumbar-5025f@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2022-12-29T15:38:12.043Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/bptd3sumbar-5025f/serviceAccounts/bptd3sumbar-5025f@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2022-12-29T15:38:13.170Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/bptd3sumbar-5025f/serviceAccounts/bptd3sumbar-5025f@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2022-12-29T15:38:13.171Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/bptd3sumbar-5025f/serviceAccounts/bptd3sumbar-5025f@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2022-12-29T15:38:13.172Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/bptd3sumbar-5025f [none]
+[debug] [2022-12-29T15:38:13.511Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/bptd3sumbar-5025f 200
+[debug] [2022-12-29T15:38:13.511Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/bptd3sumbar-5025f {"projectId":"bptd3sumbar-5025f","projectNumber":"44538179212","displayName":"bptd3sumbar","name":"projects/bptd3sumbar-5025f","resources":{"hostingSite":"bptd3sumbar-5025f","storageBucket":"bptd3sumbar-5025f.appspot.com","locationId":"asia-southeast2"},"state":"ACTIVE","etag":"1_9aab1da6-7446-49a4-a6a7-ab2008880e00"}
+[debug] [2022-12-29T15:38:16.381Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/bptd3sumbar-5025f/sites pageToken=&pageSize=10
+[debug] [2022-12-29T15:38:17.395Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/bptd3sumbar-5025f/sites 200
+[debug] [2022-12-29T15:38:17.395Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/bptd3sumbar-5025f/sites {"sites":[{"name":"projects/bptd3sumbar-5025f/sites/bptd3sumbar-5025f","defaultUrl":"https://bptd3sumbar-5025f.web.app","appId":"1:44538179212:web:6b9b19d5f9f77ddcbd15a9","type":"DEFAULT_SITE"}]}
+[debug] [2022-12-29T15:38:17.396Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:44538179212:web:6b9b19d5f9f77ddcbd15a9/config [none]
+[debug] [2022-12-29T15:38:18.519Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:44538179212:web:6b9b19d5f9f77ddcbd15a9/config 200
+[debug] [2022-12-29T15:38:18.520Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:44538179212:web:6b9b19d5f9f77ddcbd15a9/config {"projectId":"bptd3sumbar-5025f","appId":"1:44538179212:web:6b9b19d5f9f77ddcbd15a9","storageBucket":"bptd3sumbar-5025f.appspot.com","locationId":"asia-southeast2","apiKey":"AIzaSyB3VSM1Muu1Z4uX3q80HwhF0Ue3a7lNK1g","authDomain":"bptd3sumbar-5025f.firebaseapp.com","messagingSenderId":"44538179212","measurementId":"G-QGHVMKWK10"}
+[debug] [2022-12-29T15:38:38.229Z] TypeError: Cannot read properties of null (reading 'toString')
+    at ɵcodegenFunctionsDirectory (C:\Users\febri\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\next\index.js:220:18)
+    at async prepareFrameworks (C:\Users\febri\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\index.js:305:84)
+    at async deploy (C:\Users\febri\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:53:13)
+[error] 
+[error] Error: An unexpected error has occurred.

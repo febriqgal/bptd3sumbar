@@ -12,6 +12,7 @@ import protectLogin from "../../protect/protect-login";
 import app from "../../server/firebaseSDK";
 import styles from "../../styles/Home.module.css";
 import { useRouter } from "next/router";
+import { useUser } from "../../context/user";
 
 const GantiProfile = () => {
   const route = useRouter();
@@ -29,7 +30,7 @@ const GantiProfile = () => {
       if (imageUpload == null) return;
       await uploadBytes(storageRef, imageUpload);
       updateProfile(auth.currentUser, {
-        photoURL: `https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/profile%2F${user.uid}?alt=media&token=2ed1037c-2a23-462f-ada1-262a451fcdd0`,
+        photoURL: `https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-5025f.appspot.com/o/profile%2F${user.uid}?alt=media&token=0f5e0b60-c7d6-4bc3-a202-d8bc2916e04e`,
       });
       setDisable(true);
       setTimeout(() => {
@@ -55,7 +56,7 @@ const GantiProfile = () => {
           <img
             className="h-full w-full object-cover"
             alt="#"
-            src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/profile%2F${user.uid}?alt=media&token=2ed1037c-2a23-462f-ada1-262a451fcdd0`}
+            src={user.photoURL}
           />
         </div>
         <form

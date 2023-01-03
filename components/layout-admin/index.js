@@ -1,73 +1,32 @@
 /* eslint-disable @next/next/no-img-element */
 /* This example requires Tailwind CSS v2.0+ */
-import { Loading } from "@nextui-org/react";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import protectAdmin from "../../protect/protect-admin";
-import berita from "../../public/berita.svg";
 import editprofile from "../../public/editprofile.svg";
 import home from "../../public/home.svg";
 import keluar from "../../public/keluar.svg";
-import pengaduan from "../../public/pengaduan.svg";
+import kelolaberita from "../../public/kelolaberita.svg";
+import kelolapengaduan from "../../public/kelolapengaduan.svg";
+import kelolapengguna from "../../public/kelolapengguna.svg";
 import tambahberita from "../../public/tambahberita.svg";
-import users from "../../public/users.svg";
-import { db } from "../../server/firebaseSDK";
-import CardProfile from "./card-profile";
 import Head from "next/head";
+import CardProfile from "./card-profile";
 const LayoutAdmin = ({ children }) => {
   const navigation = [
     { name: "Beranda", icon: home, href: "/admin" },
     { name: "Tambah Berita", icon: tambahberita, href: "/admin/tambah-berita" },
-    { name: "Ganti Header", icon: editprofile, href: "/admin/ganti-header" },
-    { name: "Daftar Pengguna", icon: users, href: "/admin/users" },
+    { name: "Kelola Header", icon: editprofile, href: "/admin/ganti-header" },
+    { name: "Kelola Pengguna", icon: kelolapengguna, href: "/admin/users" },
+    {
+      name: "Kelola Pengaduan",
+      icon: kelolapengaduan,
+      href: "/admin/pengaduan",
+    },
+    { name: "Kelola Berita", icon: kelolaberita, href: "/admin/berita" },
     { name: "Keluar", icon: keluar, href: "/" },
   ];
-  const [isLoading, setIsloading] = useState(true);
-  const Beritasnapshot = useRef(null);
-  const Pengaduansnapshot = useRef(null);
-  const Userssnapshot = useRef(null);
-  const getDataBerita = async () => {
-    const querySnapshot = query(
-      collection(db, "berita"),
-      orderBy("tanggal", "desc")
-    );
-    const gettt = await getDocs(querySnapshot);
-    Beritasnapshot.current = gettt.docs;
-    setTimeout(() => {
-      setIsloading(false);
-    }, 1000);
-  };
-  const getDataPengaduan = async () => {
-    const querySnapshot = query(
-      collection(db, "pengaduan"),
-      orderBy("tanggal", "desc")
-    );
-    const gettt = await getDocs(querySnapshot);
-    Pengaduansnapshot.current = gettt.docs;
-    setTimeout(() => {
-      setIsloading(false);
-    }, 1000);
-  };
-  const getDataUsers = async () => {
-    const querySnapshot = query(
-      collection(db, "users"),
-      orderBy("tanggal", "desc")
-    );
-    const gettt = await getDocs(querySnapshot);
-    Userssnapshot.current = gettt.docs;
-    setTimeout(() => {
-      setIsloading(false);
-    }, 1000);
-  };
-
-  useEffect(() => {
-    getDataBerita();
-    getDataPengaduan();
-    getDataUsers();
-  }, []);
   return (
     <>
       <Toaster />
@@ -116,47 +75,6 @@ const LayoutAdmin = ({ children }) => {
       </div>
       <div className="pl-0 md:pl-64 flex flex-col flex-1">
         <div>
-          <div className="flex w-full justify-evenly py-5 lg:py-7 rounded-lg shadow-xl">
-            <div className="flex items-center gap-2">
-              <Image src={berita} width={40} alt="#" />
-              <div className="text-center text-sm md:text-base">
-                <h1 className="font-semibold">
-                  {isLoading ? (
-                    <Loading color={"currentColor"} type="points" size="sm" />
-                  ) : (
-                    Object.values(Beritasnapshot.current).length
-                  )}
-                </h1>
-                <h1 className="font-medium text-sm">Berita</h1>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <Image src={pengaduan} width={40} alt="#" />
-              <div className="text-center text-sm md:text-base">
-                <h1 className="font-semibold">
-                  {isLoading ? (
-                    <Loading color={"currentColor"} type="points" size="sm" />
-                  ) : (
-                    Object.values(Pengaduansnapshot.current).length
-                  )}
-                </h1>
-                <h1 className="font-medium text-sm">Pengaduan</h1>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <Image src={users} width={40} alt="#" />
-              <div className="text-center text-sm md:text-base">
-                <h1 className="font-semibold">
-                  {isLoading ? (
-                    <Loading color={"currentColor"} type="points" size="sm" />
-                  ) : (
-                    Object.values(Userssnapshot.current).length
-                  )}
-                </h1>
-                <h1 className="font-medium text-sm">User</h1>
-              </div>
-            </div>
-          </div>
           <div>{children}</div>
         </div>
       </div>

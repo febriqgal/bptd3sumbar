@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-import { toast, Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import Layout from "../../../components/layout";
 import { useUser } from "../../../context/user";
 import dibuat from "../../../public/dibuat.svg";
@@ -36,7 +36,6 @@ export default function detail() {
   const snapshot = useRef(null);
   dayjs.locale("id");
   dayjs.extend(relativeTime);
-
   const dataBerita = async () => {
     const docRef = doc(db, "berita", `${id}`);
     const docSnap = await getDoc(docRef);
@@ -60,8 +59,8 @@ export default function detail() {
       <Layout>
         <Toaster />
         <Head>
-          <title>{post.judul_berita}</title>
-          <meta name="description" content={post.isi_berita} />
+          <title>{post.judul}</title>
+          <meta name="description" content={post.isi} />
           <link rel="icon" href="/logo.png" />
         </Head>
         <div className="bg-white overflow-hidden rounded-b-xl mx-0 lg:mx-5 mb-5 mt-[84px]">
@@ -71,7 +70,7 @@ export default function detail() {
               <div className="flex flex-col rounded-lg shadow-xl p-4 lg:flex-row gap-1 lg:gap-0 lg:justify-evenly">
                 <div className="flex  items-center gap-2">
                   <Image src={penulis} width={20} alt={"#"} />
-                  <h2 className="text-xs">{post.penulis_berita}</h2>
+                  <h2 className="text-xs">{post.penulis}</h2>
                 </div>
                 <div className="flex items-center gap-2">
                   <Image src={dilihat} width={20} alt={"#"} />
@@ -96,7 +95,7 @@ export default function detail() {
                         <Image width={20} src={hapus} alt={"#"} />
                       </Tooltip>
                     </button>
-                    <Link href={`${id}/edit/${post.judul_berita}`}>
+                    <Link href={`${id}/edit/${post.judul}`}>
                       <Tooltip content={"Edit"}>
                         <Image width={20} src={edit} alt={"#"} />
                       </Tooltip>
@@ -116,27 +115,23 @@ export default function detail() {
               >
                 <Modal.Body>
                   <h1 className="text-center m-auto">Yakin Menghapus?</h1>
-                  <button
+                  <Link
+                    href={"/"}
                     className="bg-red-500 py-1 px-4 rounded-lg text-white"
                     onClick={async () => {
-                      try {
-                        const docRef = doc(db, "berita", `${id}`);
-                        const storage = getStorage(app);
-                        const desertRef = ref(storage, `image/${post.gambar}`);
-                        await deleteObject(desertRef);
-                        await deleteDoc(docRef);
-
-                        route.replace("/");
-                        toast.success("Berhasil Menghapus Berita", {
-                          icon: "🎉",
-                        });
-                      } catch (error) {
-                        toast.error("Gagal Menghapus berita");
-                      }
+                      const docRef = doc(db, "berita", `${id}`);
+                      const storage = getStorage(app);
+                      const desertRef = ref(
+                        storage,
+                        `image/berita/${post.gambar}`
+                      );
+                      await deleteObject(desertRef);
+                      await deleteDoc(docRef);
+                      window.location.reload();
                     }}
                   >
                     Hapus
-                  </button>
+                  </Link>
                 </Modal.Body>
               </Modal>
             </div>
@@ -180,8 +175,8 @@ export default function detail() {
                     <div className="aspect-w-12 aspect-h-7 lg:aspect-none">
                       <img
                         className="rounded-lg shadow-lg object-cover object-center hover:scale-105 duration-1000"
-                        src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/image%2F${post.gambar}?alt=media&token=e6aed1f9-4cad-4985-b739-dcf2fcd3e7de`}
-                        alt={post.judul_berita}
+                        src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-5025f.appspot.com/o/image%2Fberita%2F${post.gambar}?alt=media&token=1b8521e3-56c7-4939-8a65-d3ad8da849cf`}
+                        alt={post.judul}
                         width={1184}
                         height={1376}
                       />
@@ -192,11 +187,11 @@ export default function detail() {
               <div className="mt-8 lg:mt-0">
                 <div className="text-base max-w-prose mx-auto lg:max-w-none">
                   <p className="text-xl font-bold text-gray-500">
-                    {post.judul_berita}
+                    {post.judul}
                   </p>
                 </div>
                 <div className="mt-5 prose prose-indigo text-gray-500 mx-auto lg:max-w-none lg:row-start-1 lg:col-start-1">
-                  <h1 className="text-justify">{post.isi_berita}</h1>
+                  <h1 className="text-justify">{post.isi}</h1>
                 </div>
               </div>
             </div>

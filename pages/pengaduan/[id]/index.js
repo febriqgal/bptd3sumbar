@@ -16,14 +16,16 @@ import { db } from "../../../server/firebaseSDK";
 import styles from "../../../styles/Home.module.css";
 import Layout from "../../../components/layout";
 import hapus from "../../../public/hapus.svg";
+import { auth } from "../../../server/firebaseSDK";
 export default function DetailPengaduan() {
   dayjs.locale("id");
   dayjs.extend(relativeTime);
   const route = useRouter();
+  const user = auth.currentUser;
   const [isLoading, setIsloading] = useState(true);
   const { id } = route.query;
   const snapshot = useRef(null);
-  const dataBerita = async () => {
+  const getDataPengaduan = async () => {
     const docRef = doc(db, "pengaduan", `${id}`);
     const docSnap = await getDoc(docRef);
     snapshot.current = docSnap.data();
@@ -32,7 +34,7 @@ export default function DetailPengaduan() {
     }, 1000);
   };
   useEffect(() => {
-    dataBerita();
+    getDataPengaduan();
   });
   if (isLoading) {
     return (
@@ -72,25 +74,29 @@ export default function DetailPengaduan() {
                         </Tooltip>
                       </h2>
                     </div>
-                    <div className="flex  items-center gap-2">
-                      <Image
-                        className="hover:cursor-pointer"
-                        onClick={async () => {
-                          const docRef = doc(db, "pengaduan", `${id}`);
-                          const storage = getStorage(app);
-                          const desertRef = ref(
-                            storage,
-                            `image/pengaduan/${post.gambar}`
-                          );
-                          await deleteObject(desertRef);
-                          await deleteDoc(docRef);
-                          route.back();
-                        }}
-                        src={hapus}
-                        width={20}
-                        alt={"#"}
-                      />
-                    </div>
+                    {user.email === "febriqgal@gmail.com" ? (
+                      <Tooltip content="Hapus">
+                        <Image
+                          className="hover:cursor-pointer"
+                          onClick={async () => {
+                            const docRef = doc(db, "pengaduan", `${id}`);
+                            const storage = getStorage(app);
+                            const desertRef = ref(
+                              storage,
+                              `image/pengaduan/${post.gambar}`
+                            );
+                            await deleteObject(desertRef);
+                            await deleteDoc(docRef);
+                            route.back();
+                          }}
+                          src={hapus}
+                          width={20}
+                          alt={"#"}
+                        />
+                      </Tooltip>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
                 <div className="mt-8 lg:grid lg:grid-cols-2 lg:gap-8">

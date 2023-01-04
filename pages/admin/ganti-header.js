@@ -2,6 +2,7 @@ import { getStorage, ref, uploadBytes } from "firebase/storage";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import LayoutAdmin from "../../components/layout-admin";
 import homeroute from "../../public/homeroute.svg";
 
@@ -11,38 +12,59 @@ export default function UploadHeader() {
   //======================= 1
   const [imageUploadHeader1, setImageUploadHeader1] = useState();
   const storageRefHeader1 = ref(storage, `image/header/1`);
-  const addDataImageHeader1 = async () => {
-    if (imageUploadHeader1 == null) return;
-    await uploadBytes(storageRefHeader1, imageUploadHeader1);
-    alert("Data berhasil ditambahkan");
-    window.location.reload();
+  const addDataImageHeader1 = () => {
+    const push = async () => {
+      if (imageUploadHeader1 == null) return;
+      await uploadBytes(storageRefHeader1, imageUploadHeader1);
+    };
+    toast.promise(push(), {
+      success: "Berhasil",
+      loading: "Mohon tunggu...",
+      error: "Terjadi kesalahan",
+    });
   };
+
   //======================= 2
   const [imageUploadHeader2, setImageUploadHeader2] = useState();
   const storageRefHeader2 = ref(storage, `image/header/2`);
   const addDataImageHeader2 = async () => {
-    if (imageUploadHeader2 == null) return;
-    await uploadBytes(storageRefHeader2, imageUploadHeader2);
-    alert("Data berhasil ditambahkan");
-    window.location.reload();
+    const push = async () => {
+      if (imageUploadHeader2 == null) return;
+      await uploadBytes(storageRefHeader2, imageUploadHeader2);
+    };
+    toast.promise(push(), {
+      success: "Berhasil",
+      loading: "Mohon tunggu...",
+      error: "Terjadi kesalahan",
+    });
   };
   //======================= 3
   const [imageUploadHeader3, setImageUploadHeader3] = useState();
   const storageRefHeader3 = ref(storage, `image/header/3`);
   const addDataImageHeader3 = async () => {
-    if (imageUploadHeader3 == null) return;
-    await uploadBytes(storageRefHeader3, imageUploadHeader3);
-    alert("Data berhasil ditambahkan");
-    window.location.reload();
+    const push = async () => {
+      if (imageUploadHeader3 == null) return;
+      await uploadBytes(storageRefHeader3, imageUploadHeader3);
+    };
+    toast.promise(push(), {
+      success: "Berhasil",
+      loading: "Mohon tunggu...",
+      error: "Terjadi kesalahan",
+    });
   };
   //======================= 4
   const [imageUploadHeader4, setImageUploadHeader4] = useState();
   const storageRefHeader4 = ref(storage, `image/header/4`);
   const addDataImageHeader4 = async () => {
-    if (imageUploadHeader4 == null) return;
-    await uploadBytes(storageRefHeader4, imageUploadHeader4);
-    alert("Data berhasil ditambahkan");
-    window.location.reload();
+    const push = async () => {
+      if (imageUploadHeader4 == null) return;
+      await uploadBytes(storageRefHeader4, imageUploadHeader4);
+    };
+    toast.promise(push(), {
+      success: "Berhasil",
+      loading: "Mohon tunggu...",
+      error: "Terjadi kesalahan",
+    });
   };
 
   return (

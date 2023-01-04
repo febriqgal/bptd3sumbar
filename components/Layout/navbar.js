@@ -107,19 +107,6 @@ export default function Navbar() {
                         {e.title}
                       </Link>
                     ))}
-                    <h1>|</h1>
-                    <Tooltip placement="bottom" content="Pencarian">
-                      <div className="justify-center flex px-5 rounded-md">
-                        <Image
-                          className="hover:cursor-pointer"
-                          onClick={() => {
-                            route.push("pencarian");
-                          }}
-                          src={pencarian}
-                          alt="#"
-                        />
-                      </div>
-                    </Tooltip>
                   </div>
                 </div>
                 <div className="my-auto right-0 top-4 hidden sm:ml-6 lg:block">
@@ -152,16 +139,7 @@ export default function Navbar() {
                     {e.title}
                   </Link>
                 ))}
-                <div className="border-2 justify-center flex px-5 py-2 rounded-md">
-                  <Image
-                    className="hover:cursor-pointer"
-                    onClick={() => {
-                      route.push("pencarian");
-                    }}
-                    src={pencarian}
-                    alt="#"
-                  />
-                </div>
+
                 <div className="m-auto mt-2">
                   <Dropdownprofile />
                 </div>

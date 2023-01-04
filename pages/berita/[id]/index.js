@@ -115,8 +115,7 @@ export default function detail() {
               >
                 <Modal.Body>
                   <h1 className="text-center m-auto">Yakin Menghapus?</h1>
-                  <Link
-                    href={"/"}
+                  <button
                     className="bg-red-500 py-1 px-4 rounded-lg text-white"
                     onClick={async () => {
                       const docRef = doc(db, "berita", `${id}`);
@@ -127,11 +126,14 @@ export default function detail() {
                       );
                       await deleteObject(desertRef);
                       await deleteDoc(docRef);
-                      window.location.reload();
+                      route.push("/");
+                      setTimeout(() => {
+                        window.location.reload();
+                      }, 3000);
                     }}
                   >
                     Hapus
-                  </Link>
+                  </button>
                 </Modal.Body>
               </Modal>
             </div>

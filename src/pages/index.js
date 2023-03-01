@@ -1,12 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Head from "next/head";
 import Image from "next/image";
-import CarouselBerita from "../components/carousel/berita";
-import ComCarouselHeader from "../components/Carousel/header";
-import Layout from "../components/layout";
 import ig from "../../public/ig.svg";
 import populer from "../../public/populer.svg";
 import yt from "../../public/ytt.svg";
+import CarouselBerita from "../components/carousel/berita";
+import ComCarouselHeader from "../components/Carousel/header";
+import Instagram from "../components/carousel/ig";
+import Youtube from "../components/carousel/yt";
+import Layout from "../components/layout";
 export default function Index() {
   return (
     <Layout>
@@ -34,18 +36,22 @@ export default function Index() {
               <Image src={ig} alt={"#"} />
               <h1 className="font-bold">Postingan dari Instagram</h1>
             </div>
-            <div className="m-4"></div>
+            <div className="m-4">
+              <Instagram />
+            </div>
           </div>
         </div>
-        <div className="shadow-xl mx-5 my-8 rounded-md text-center">
+        {/* <div className="shadow-xl mx-5 my-8 rounded-md text-center">
           <div className="flex flex-col justify-center items-center">
             <div className="flex gap-2">
               <Image src={yt} alt={"#"} />
               <h1 className="font-bold">Video dari Youtube</h1>
             </div>
-            <div className="m-4"></div>
+            <div className="m-4">
+              <Youtube />
+            </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </Layout>
   );

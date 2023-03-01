@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import "dayjs/locale/id";
 import { doc, updateDoc } from "firebase/firestore";
+import Image from "next/image";
+import { useRouter } from "next/router";
 import {
   ButtonBack,
   ButtonNext,
@@ -10,27 +12,32 @@ import {
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import React from "react";
-import YouTubePlayer from "react-player/youtube";
+import Ig from "../../../public/ig.jpg";
+import Ig1 from "../../../public/ig1.jpg";
+import Ig2 from "../../../public/ig2.jpg";
+import Ig3 from "../../../public/ig3.jpg";
+import Ig4 from "../../../public/ig4.jpg";
+import Ig5 from "../../../public/ig5.jpg";
 import { db } from "../../server/firebaseSDK";
-import styles from "../../styles/Home.module.css";
-
-export default function CarouselYoutube() {
-  const video = [
-    { url: "dddd" },
-    { url: "dddd" },
-    { url: "dddd" },
-    { url: "dddd" },
-    { url: "dddd" },
+export default function Youtube() {
+  const data = [
+    { img: Ig, href: "https://www.instagram.com/p/CpCWvjXvNOm/?next=%2F" },
+    { img: Ig1, href: "https://www.instagram.com/p/CpCTNWUPurv/?next=%2F" },
+    { img: Ig2, href: "https://www.instagram.com/p/Co9Yl0FP7UK/?next=%2F" },
+    { img: Ig3, href: "https://www.instagram.com/p/Co9UXQLvNgO/?next=%2F" },
+    { img: Ig4, href: "https://www.instagram.com/p/Co9SRuzP16A/?next=%2F" },
+    { img: Ig5, href: "https://www.instagram.com/p/CotlsaLLBO7/?next=%2F" },
   ];
+  const route = useRouter();
   return (
     <div className="flex items-center justify-center w-full h-full">
       {/* Carousel for desktop and large size devices */}
       <CarouselProvider
         className="lg:block hidden"
         isIntrinsicHeight={true}
-        totalSlides={video.length}
-        visibleSlides={3}
-        step={1}
+        totalSlides={data.length}
+        visibleSlides={4}
+        step={3}
         infinite={true}
       >
         <div className="w-full relative flex items-center justify-center">
@@ -62,14 +69,20 @@ export default function CarouselYoutube() {
                 id="slider"
                 className=" rounded-lg h-full flex lg:gap-4 md:gap-6 gap-14 items-center justify-start transition ease-out duration-700"
               >
-                {video.map((e, i) => {
+                {data.map((e, i) => {
                   return (
-                    <Slide key={i} index={i}>
+                    <Slide
+                      className="hover:cursor-pointer rounded-lg"
+                      onClick={async () => {
+                        route.push(e.href);
+                      }}
+                      key={i}
+                      index={i}
+                    >
                       <div className="flex flex-shrink-0 relative h-[200px] sm:w-auto">
-                        <iframe
-                          src={
-                            "https://www.youtube.com/watch?v=bqkXawWcCQg&ab_channel=subbagtubptd3"
-                          }
+                        <Image
+                          src={e.img}
+                          alt="#"
                           className="object-cover object-center w-full  rounded-lg"
                         />
                       </div>
@@ -193,7 +206,7 @@ export default function CarouselYoutube() {
           </CarouselProvider> */}
 
       {/* Carousel for mobile and Small size Devices */}
-      {/* <CarouselProvider
+      <CarouselProvider
         className="block md:hidden"
         naturalSlideWidth={100}
         isIntrinsicHeight={true}
@@ -232,9 +245,6 @@ export default function CarouselYoutube() {
                 className="h-full w-full flex gap-4 lg:gap-8 md:gap-6 items-center justify-start transition ease-out duration-700"
               >
                 {data.map((e, i) => {
-                  const data = e.data();
-                  const judul = data.judul_berita;
-                  const gambar = data.gambar;
                   return (
                     <Slide
                       className="rounded-lg"
@@ -249,19 +259,11 @@ export default function CarouselYoutube() {
                       index={i}
                     >
                       <div className="flex flex-shrink-0 relative w-full h-52 rounded-lg">
-                        <img
-                          src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-24e51.appspot.com/o/image%2F${gambar}?alt=media&token=e6aed1f9-4cad-4985-b739-dcf2fcd3e7de`}
-                          alt="black chair and white table"
+                        <Image
+                          src={e.img}
+                          alt="#"
                           className="object-cover object-center w-full rounded-lg"
                         />
-
-                        <div className="absolute bottom-2 left-2 right-2 rounded-lg backdrop-blur-lg">
-                          <h2
-                            className={`${styles.truncate2} px-2 lg:text-xl text-white`}
-                          >
-                            {`${judul}`}
-                          </h2>
-                        </div>
                       </div>
                     </Slide>
                   );
@@ -292,7 +294,7 @@ export default function CarouselYoutube() {
             </svg>
           </ButtonNext>
         </div>
-      </CarouselProvider> */}
+      </CarouselProvider>
     </div>
   );
 }

@@ -128,7 +128,7 @@ export default function Dropdownprofile() {
                     className="hover:bg-red-500 my-1 hover:text-white px-3 py-2 rounded-lg w-full text-red-500 text-sm"
                     onClick={async () => {
                       await signOut(auth);
-                      route.replace("/");
+                      
                     }}
                   >
                     Keluar

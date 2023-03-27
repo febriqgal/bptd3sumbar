@@ -3,11 +3,9 @@ import Head from "next/head";
 import Image from "next/image";
 import ig from "../../public/ig.svg";
 import populer from "../../public/populer.svg";
-import yt from "../../public/ytt.svg";
 import CarouselBerita from "../components/carousel/berita";
-import ComCarouselHeader from "../components/Carousel/header";
+import ComCarouselHeader from "../components/carousel/header";
 import Instagram from "../components/carousel/ig";
-import Youtube from "../components/carousel/yt";
 import Layout from "../components/layout";
 export default function Index() {
   return (

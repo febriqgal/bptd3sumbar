@@ -307,7 +307,7 @@ export default function CarouselBerita() {
                       >
                         <div className="flex flex-shrink-0 relative w-full h-52 rounded-lg">
                           <img
-                            src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-5025f.appspot.com/o/image%2Fberita%2F${gambar}?alt=media&token=1b8521e3-56c7-4939-8a65-d3ad8da849cf`}
+                            src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-8e26d.appspot.com/o/image%2Fberita%2F${gambar}?alt=media&token=4d55556e-ccc4-43be-bf00-27fb508e0a5b`}
                             alt="#"
                             className="object-cover object-center w-full rounded-lg"
                           />

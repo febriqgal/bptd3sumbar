@@ -74,7 +74,7 @@ export default function DetailPengaduan() {
                         </Tooltip>
                       </h2>
                     </div>
-                    {user.email === "febriqgal@gmail.com" ? (
+                    {user.email === "benisman1990@gmail.com" ? (
                       <Tooltip content="Hapus">
                         <Image
                           className="hover:cursor-pointer"
@@ -139,7 +139,7 @@ export default function DetailPengaduan() {
                         <div className="aspect-w-12 aspect-h-7 lg:aspect-none">
                           <img
                             className="rounded-lg shadow-lg object-cover object-center hover:scale-105 duration-1000"
-                            src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-5025f.appspot.com/o/image%2Fpengaduan%2F${post.gambar}?alt=media&token=db883335-e2a4-4f9f-ad69-e6b436b8090c`}
+                            src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-8e26d.appspot.com/o/image%2Fpengaduan%2F${post.gambar}?alt=media&token=2ea93f86-bff0-4dd8-b4d3-f00d1740c03b`}
                             alt={post.judul}
                             width={1184}
                             height={1376}

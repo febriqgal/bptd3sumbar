@@ -7,7 +7,7 @@ import { useUser } from "../context/user";
 const protectAdmin = (Pages) => {
   return (props) => {
     const { uid, email } = useUser();
-    if (!uid || email != "febriqgal@gmail.com") {
+    if (!uid || email != "benisman1990@gmail.com") {
       return (
         <section>
           <Head>

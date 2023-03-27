@@ -7,24 +7,24 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import LayoutAdmin from "../../components/layout-admin";
 import homeroute from "../../../public/homeroute.svg";
-
+import { getStorage, ref } from "firebase/storage";
 export default function UploadHeader() {
-  // const storage = getStorage();
-  // const { register, handleSubmit } = useForm();
-  // //======================= 1
-  // const [imageUploadHeader1, setImageUploadHeader1] = useState();
-  // const storageRefHeader1 = ref(storage, `image/header/1`);
-  // // const addDataImageHeader1 = () => {
-  // //   const push = async () => {
-  // //     if (imageUploadHeader1 == null) return;
-  // //     await uploadBytes(storageRefHeader1, imageUploadHeader1);
-  // //   };
-  // //   toast.promise(push(), {
-  // //     success: "Berhasil",
-  // //     loading: "Mohon tunggu...",
-  // //     error: "Terjadi kesalahan",
-  // //   });
-  // // };
+  const storage = getStorage();
+  const { register, handleSubmit } = useForm();
+  //======================= 1
+  const [imageUploadHeader1, setImageUploadHeader1] = useState();
+  const storageRefHeader1 = ref(storage, `image/header/1`);
+  const addDataImageHeader1 = () => {
+    const push = async () => {
+      if (imageUploadHeader1 == null) return;
+      await uploadBytes(storageRefHeader1, imageUploadHeader1);
+    };
+    toast.promise(push(), {
+      success: "Berhasil",
+      loading: "Mohon tunggu...",
+      error: "Terjadi kesalahan",
+    });
+  };
 
   //======================= 2
   const [imageUploadHeader2, setImageUploadHeader2] = useState();

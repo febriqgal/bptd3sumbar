@@ -58,7 +58,7 @@ export default function Dropdownprofile() {
               <h1 className="text-xs">{auth.currentUser?.email ?? "-"}</h1>
               <hr className="my-2 mx-4" />
               <Menu.Item>
-                {auth.currentUser?.email === "febriqgal@gmail.com" ? (
+                {auth.currentUser?.email === "benisman1990@gmail.com" ? (
                   <div className="flex ml-3 gap-1 mb-1">
                     <Image src={admin} alt={"#"} />
                     <Link
@@ -128,7 +128,6 @@ export default function Dropdownprofile() {
                     className="hover:bg-red-500 my-1 hover:text-white px-3 py-2 rounded-lg w-full text-red-500 text-sm"
                     onClick={async () => {
                       await signOut(auth);
-                      
                     }}
                   >
                     Keluar

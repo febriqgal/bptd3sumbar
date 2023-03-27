@@ -19,7 +19,7 @@ const LayoutAdmin = ({ children }) => {
   const navigation = [
     { name: "Beranda", icon: home, href: "/admin" },
     { name: "Tambah Berita", icon: tambahberita, href: "/admin/tambah-berita" },
-    // { name: "Tambah Download", icon: tambahberita, href: "/admin/download" },
+    { name: "Tambah Download", icon: tambahberita, href: "/admin/download" },
     { name: "Kelola Header", icon: editprofile, href: "/admin/ganti-header" },
     { name: "Kelola Pengguna", icon: kelolapengguna, href: "/admin/users" },
     {
@@ -27,6 +27,7 @@ const LayoutAdmin = ({ children }) => {
       icon: kelolapengaduan,
       href: "/admin/pengaduan",
     },
+
     { name: "Kelola Berita", icon: kelolaberita, href: "/admin/berita" },
     { name: "Keluar", icon: keluar, href: "/" },
   ];

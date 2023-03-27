@@ -84,7 +84,7 @@ export default function detail() {
                     </h3>
                   </Tooltip>
                 </div>
-                {email === "febriqgal@gmail.com" ? (
+                {email === "benisman1990@gmail.com" ? (
                   <>
                     <button
                       onClick={() => {

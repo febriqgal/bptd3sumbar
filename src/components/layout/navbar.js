@@ -25,7 +25,7 @@ export default function Navbar() {
     { title: "Sejarah", href: "/sejarah" },
     { title: "Struktur Organisasi", href: "/organisasi" },
     { title: "Tugas dan Fungsi", href: "/tugas-dan-fungsi" },
-    // { title: "Download", href: "/download" },
+    { title: "Download", href: "/download" },
   ];
 
   useEffect(() => {

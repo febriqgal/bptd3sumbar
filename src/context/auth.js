@@ -13,7 +13,7 @@ const AuthStateChangeProvider = ({ children }) => {
     Authentication().onAuthStateChanged((user) => {
       if (user) {
         console.log("User is authenticated");
-        console.log(user);
+
         SetUser({
           email: user.email,
           uid: user.uid,
@@ -27,7 +27,7 @@ const AuthStateChangeProvider = ({ children }) => {
       setIsLoading(false);
     });
   };
-  
+
   useEffect(() => {
     InitiateAuthStateChange();
   }, []);

@@ -78,7 +78,7 @@ export default function LayouUser() {
                       });
                     }}
                     className="object-cover h-48 w-full hover:scale-110 duration-1000 hover:cursor-pointer"
-                    src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-5025f.appspot.com/o/image%2Fberita%2F${Data.gambar}?alt=media&token=1b8521e3-56c7-4939-8a65-d3ad8da849cf`}
+                    src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-8e26d.appspot.com/o/image%2Fberita%2F${Data?.gambar}?alt=media&token=4d55556e-ccc4-43be-bf00-27fb508e0a5b`}
                     alt={"#"}
                   />
                 </div>

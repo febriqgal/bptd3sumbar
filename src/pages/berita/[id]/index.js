@@ -177,7 +177,7 @@ export default function detail() {
                     <div className="aspect-w-12 aspect-h-7 lg:aspect-none">
                       <img
                         className="rounded-lg shadow-lg object-cover object-center hover:scale-105 duration-1000"
-                        src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-5025f.appspot.com/o/image%2Fberita%2F${post.gambar}?alt=media&token=1b8521e3-56c7-4939-8a65-d3ad8da849cf`}
+                        src={`https://firebasestorage.googleapis.com/v0/b/bptd3sumbar-8e26d.appspot.com/o/image%2Fberita%2F${post?.gambar}?alt=media&token=4d55556e-ccc4-43be-bf00-27fb508e0a5b`}
                         alt={post.judul}
                         width={1184}
                         height={1376}

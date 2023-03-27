@@ -74,7 +74,7 @@ export default function DetailPengaduan() {
                         </Tooltip>
                       </h2>
                     </div>
-                    {user.email === "benisman1990@gmail.com" ? (
+                    {user?.email === "benisman1990@gmail.com" ? (
                       <Tooltip content="Hapus">
                         <Image
                           className="hover:cursor-pointer"
